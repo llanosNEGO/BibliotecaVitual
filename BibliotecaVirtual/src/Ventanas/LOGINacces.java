@@ -8,15 +8,13 @@ package Ventanas;
  *
  * @author Nego
  */
-public class LOGINinterfaz extends javax.swing.JFrame {
+public class LOGINacces extends javax.swing.JFrame {
 
     /**
-     * Creates new form LOGINinterfaz
+     * Creates new form LOGINacces
      */
-    public LOGINinterfaz() {
+    public LOGINacces() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        
     }
 
     /**
@@ -28,22 +26,33 @@ public class LOGINinterfaz extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabelisesion = new javax.swing.JLabel();
         jLabelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setMaximumSize(new java.awt.Dimension(50, 50));
+        setMinimumSize(new java.awt.Dimension(50, 50));
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelisesion.setFont(new java.awt.Font("Arial Black", 0, 20)); // NOI18N
+        jLabelisesion.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelisesion.setText("INICIAR SESIÓN");
+        jPanel1.add(jLabelisesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 200, 60));
 
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/simple-background-texture-blue-blue-background-wallpaper-preview.jpg"))); // NOI18N
+        jPanel1.add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 380));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 318, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelFondo)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -66,25 +75,27 @@ public class LOGINinterfaz extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LOGINinterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LOGINacces.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LOGINinterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LOGINacces.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LOGINinterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LOGINacces.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LOGINinterfaz.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LOGINacces.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LOGINinterfaz().setVisible(true);
+                new LOGINacces().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelFondo;
+    private javax.swing.JLabel jLabelisesion;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
