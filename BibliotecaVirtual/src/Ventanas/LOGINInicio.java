@@ -39,7 +39,7 @@ public class LOGINInicio extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonUsuario.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
-        jButtonUsuario.setText("Usuario");
+        jButtonUsuario.setText("Cliente");
         jButtonUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonUsuarioActionPerformed(evt);
@@ -56,8 +56,8 @@ public class LOGINInicio extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, -1, -1));
 
-        jButtonSalir.setBackground(new java.awt.Color(0, 102, 255));
-        jButtonSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButtonSalir.setBackground(new java.awt.Color(30, 70, 97));
+        jButtonSalir.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButtonSalir.setForeground(new java.awt.Color(255, 255, 255));
         jButtonSalir.setText("Salir");
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -65,7 +65,7 @@ public class LOGINInicio extends javax.swing.JFrame {
                 jButtonSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
+        getContentPane().add(jButtonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, -1, -1));
 
         jLabelPresentacion.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabelPresentacion.setForeground(new java.awt.Color(255, 255, 255));
@@ -73,7 +73,7 @@ public class LOGINInicio extends javax.swing.JFrame {
         getContentPane().add(jLabelPresentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
 
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/simple-background-texture-blue-blue-background-wallpaper-preview.jpg"))); // NOI18N
-        getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 318, -1));
+        getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 0, 330, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

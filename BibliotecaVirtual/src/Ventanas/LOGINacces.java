@@ -15,6 +15,8 @@ public class LOGINacces extends javax.swing.JFrame {
      */
     public LOGINacces() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        
     }
 
     /**
@@ -28,11 +30,20 @@ public class LOGINacces extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabelisesion = new javax.swing.JLabel();
+        jButtonRegresar = new javax.swing.JButton();
+        jLabelUser = new javax.swing.JLabel();
+        jTextUsername = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTextContrasenia = new javax.swing.JTextField();
+        jButtonIngresar = new javax.swing.JButton();
+        jButtonExit = new javax.swing.JButton();
         jLabelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(50, 50));
         setMinimumSize(new java.awt.Dimension(50, 50));
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -41,22 +52,69 @@ public class LOGINacces extends javax.swing.JFrame {
         jLabelisesion.setText("INICIAR SESIÓN");
         jPanel1.add(jLabelisesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 200, 60));
 
+        jButtonRegresar.setBackground(new java.awt.Color(47, 101, 140));
+        jButtonRegresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButtonRegresar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonRegresar.setText("Regresar");
+        jButtonRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegresarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 110, 40));
+
+        jLabelUser.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        jLabelUser.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Userlog.png"))); // NOI18N
+        jLabelUser.setText("USUARIO");
+        jPanel1.add(jLabelUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 140, 60));
+        jPanel1.add(jTextUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 270, 30));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pass.png"))); // NOI18N
+        jLabel1.setText("CONTRASEÑA");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+        jPanel1.add(jTextContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 230, 270, 30));
+
+        jButtonIngresar.setBackground(new java.awt.Color(47, 101, 140));
+        jButtonIngresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButtonIngresar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonIngresar.setText("Ingresar");
+        jPanel1.add(jButtonIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 110, 40));
+
+        jButtonExit.setBackground(new java.awt.Color(48, 113, 156));
+        jButtonExit.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButtonExit.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonExit.setText("SALIR");
+        jButtonExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExitActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, -1, -1));
+
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/simple-background-texture-blue-blue-background-wallpaper-preview.jpg"))); // NOI18N
+        jLabelFondo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 380));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
+        // TODO add your handling code here:
+        LOGINInicio ini = new LOGINInicio();
+        this.setVisible(false);
+        ini.setVisible(true);
+        ini.requestFocusInWindow();
+    }//GEN-LAST:event_jButtonRegresarActionPerformed
+
+    private void jButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButtonExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -94,8 +152,15 @@ public class LOGINacces extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonExit;
+    private javax.swing.JButton jButtonIngresar;
+    private javax.swing.JButton jButtonRegresar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelFondo;
+    private javax.swing.JLabel jLabelUser;
     private javax.swing.JLabel jLabelisesion;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextContrasenia;
+    private javax.swing.JTextField jTextUsername;
     // End of variables declaration//GEN-END:variables
 }
