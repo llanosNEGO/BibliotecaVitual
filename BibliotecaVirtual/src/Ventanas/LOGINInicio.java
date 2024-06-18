@@ -28,14 +28,11 @@ public class LOGINInicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelLiro = new javax.swing.JLabel();
         jButtonUsuario = new javax.swing.JButton();
         jButtonAdministrador = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
         jLabelPresentacion = new javax.swing.JLabel();
         jLabelFondo = new javax.swing.JLabel();
-
-        jLabelLiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/IconLibro.png"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -145,7 +142,6 @@ public class LOGINInicio extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JButton jButtonUsuario;
     private javax.swing.JLabel jLabelFondo;
-    private javax.swing.JLabel jLabelLiro;
     private javax.swing.JLabel jLabelPresentacion;
     // End of variables declaration//GEN-END:variables
 }
