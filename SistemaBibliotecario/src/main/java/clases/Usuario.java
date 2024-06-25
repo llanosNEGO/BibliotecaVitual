@@ -10,51 +10,23 @@ import java.util.Calendar;
  *
  * @author javm_
  */
-public class Usuario {
-    private int usuarioId;
-    private String nombre;
-    private String email;
-    private String contraseña;
+public class Usuario extends Persona{
     private Calendar fechaRegistro;
     private int administradorId;
 
-    public Usuario(String nombre, String email, String contraseña, Calendar fechaRegistro) {
-        this.nombre = nombre;
-        this.email = email;
-        this.contraseña = contraseña;
+    public Usuario() {
+    }
+
+    public Usuario(Calendar fechaRegistro, int administradorId, int codigo, String nombre, String email, String contraseña) {
+        super(codigo, nombre, email, contraseña);
         this.fechaRegistro = fechaRegistro;
+        this.administradorId = administradorId;
     }
 
-    public int getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(int usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getContraseña() {
-        return contraseña;
-    }
-
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public Usuario(Calendar fechaRegistro, int administradorId, String nombre, String email, String contraseña) {
+        super(nombre, email, contraseña);
+        this.fechaRegistro = fechaRegistro;
+        this.administradorId = administradorId;
     }
 
     public Calendar getFechaRegistro() {
@@ -75,8 +47,9 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario: " + "usuarioId=" + usuarioId + ", nombre=" + nombre + ", email=" + email + ", contrase\u00f1a=" + contraseña + ", fechaRegistro=" + fechaRegistro + ", administradorId=" + administradorId + ':';
+        return "Usuario{" + "fechaRegistro=" + fechaRegistro + ", administradorId=" + administradorId + '}';
     }
+
     
     
 }
