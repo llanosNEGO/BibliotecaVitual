@@ -3,6 +3,7 @@ clases\Donaciones.class
 interfaz\LoginInicio$4.class
 clases\Prestamos.class
 clases\Reserva.class
+clases\Persona.class
 interfaz\LoginPrelogin$2.class
 clases\Libro.class
 clases\Comentario.class

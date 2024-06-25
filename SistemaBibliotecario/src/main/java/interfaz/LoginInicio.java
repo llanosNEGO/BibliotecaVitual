@@ -52,13 +52,13 @@ public class LoginInicio extends javax.swing.JFrame {
         getContentPane().add(jButtonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, -1, -1));
 
         jButtonUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonUsuario.setText("Usuario");
+        jButtonUsuario.setText("UUsuario");
         jButtonUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonUsuarioActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, -1, -1));
+        getContentPane().add(jButtonUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, -1, -1));
 
         Administrador.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Administrador.setText("Administrador");
