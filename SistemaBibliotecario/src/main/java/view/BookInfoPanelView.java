@@ -8,12 +8,12 @@ package view;
  *
  * @author Hamer
  */
-public class BookInfo extends javax.swing.JPanel {
+public class BookInfoPanelView extends javax.swing.JPanel {
 
     /**
      * Creates new form BookInfo
      */
-    public BookInfo() {
+    public BookInfoPanelView() {
         initComponents();
     }
 

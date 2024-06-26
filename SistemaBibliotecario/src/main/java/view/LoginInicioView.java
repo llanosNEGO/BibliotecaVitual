@@ -8,12 +8,12 @@ package view;
  *
  * @author Nego
  */
-public class LoginInicio extends javax.swing.JFrame {
+public class LoginInicioView extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginInicio
      */
-    public LoginInicio() {
+    public LoginInicioView() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -81,7 +81,7 @@ public class LoginInicio extends javax.swing.JFrame {
 
     private void jButtonUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUsuarioActionPerformed
         // TODO add your handling code here:
-        LoginPrelogin sesion = new LoginPrelogin();
+        LoginPreloginView sesion = new LoginPreloginView();
         sesion.setVisible(true);
         this.setVisible(false);
 
@@ -89,7 +89,7 @@ public class LoginInicio extends javax.swing.JFrame {
 
     private void AdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdministradorActionPerformed
         // TODO add your handling code here:
-        LoginPrelogin sesion = new LoginPrelogin();
+        LoginPreloginView sesion = new LoginPreloginView();
         sesion.setVisible(true);
         this.setVisible(false);
 
@@ -117,20 +117,21 @@ public class LoginInicio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginInicioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginInicioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginInicioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginInicioView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginInicio().setVisible(true);
+                new LoginInicioView().setVisible(true);
             }
         });
     }

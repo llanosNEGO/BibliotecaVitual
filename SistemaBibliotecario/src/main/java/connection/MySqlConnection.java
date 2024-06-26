@@ -20,7 +20,7 @@ public class MySqlConnection {
         try 
         {
             // Cambia estos valores según tu configuración
-            String url = "jdbc:mysql://localhost:3306/BDVENTAS";
+            String url = "jdbc:mysql://localhost:3306/bibliotecabd";
             String user = "root";
             String password = "root";
             connection = DriverManager.getConnection(url, user, password);

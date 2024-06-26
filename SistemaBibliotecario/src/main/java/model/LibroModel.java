@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class LibroModel {
     private int id;
@@ -8,11 +9,11 @@ public class LibroModel {
     private String sinopsis;
     private String urlImage;
     private String isbn;
-    private Calendar anioPublicacion;
+    private Date anioPublicacion;
     private int idAutor;
     private int idEditorial;
 
-    public LibroModel(String titulo, String Sinopsis, String urlImage, String isbn, Calendar añoPublicacion, int idAutor, int idEditorial) {
+    public LibroModel(String titulo, String Sinopsis, String urlImage, String isbn, Date añoPublicacion, int idAutor, int idEditorial) {
         this.titulo = titulo;
         this.sinopsis = Sinopsis;
         this.urlImage = urlImage;
@@ -57,11 +58,11 @@ public class LibroModel {
         this.isbn = isbn;
     }
 
-    public Calendar getAnioPublicacion() {
+    public Date getAnioPublicacion() {
         return anioPublicacion;
     }
 
-    public void setAnioPublicacion(Calendar añoPublicacion) {
+    public void setAnioPublicacion(Date añoPublicacion) {
         this.anioPublicacion = añoPublicacion;
     }
 

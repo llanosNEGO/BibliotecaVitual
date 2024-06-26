@@ -43,7 +43,7 @@ public class LibroService implements ICrudService<LibroModel> {
 
             // Execute the statement
             statement.executeUpdate();
-            System.out.println("Libro inserted successfully!");
+            System.out.println("Libro insertedo existosamente!");
         } catch (SQLException e) {
             e.printStackTrace();
             
@@ -52,22 +52,68 @@ public class LibroService implements ICrudService<LibroModel> {
 
     @Override
     public LibroModel selectById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "SELECT * FROM libro WHERE id = ?;";
+        
+        LibroModel libro = new LibroModel();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+    
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+            String anioPublicacionStr = resultSet.getString("anio_publicacion");
+            // Convertir la cadena a Date usando SimpleDateFormat
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy"); // Ajusta el formato según cómo se almacene en la base de datos
+            Date anioPublicacionDate = dateFormat.parse(anioPublicacionStr);
+            libro.setId(resultSet.getInt("id"));
+            libro.setTitulo(resultSet.getString("titulo"));
+            libro.setSinopsis(resultSet.getString("sinopsis"));
+            libro.setUrlImage(resultSet.getString("url_image"));
+            libro.setIsbn(resultSet.getString("isb"));
+            libro.setAnioPublicacion(anioPublicacionDate);
+            libro.setIdAutor(resultSet.getInt("id_autor"));
+            libro.setIdEditorial(resultSet.getInt("id_editorial"));
+                
+           
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException ex) {
+            Logger.getLogger(LibroService.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (resultSet != null) {
+                resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    
+        return libro;
     }
 
     @Override
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "DELETE * FROM libro WHERE id = ?;";
+        /*try{
+        }catch(SQLException e){
+        }*/
     }
 
     @Override
     public void update(int id, LibroModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "UPDATE libro SET WHERE id = ?";
     }
 
     @Override
     public List<LibroModel> search(String keyword) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "SELECT ";
+        List<LibroModel> libros = new ArrayList<LibroModel>();
+        return libros;
     }
 
    
@@ -111,10 +157,10 @@ public class LibroService implements ICrudService<LibroModel> {
                 if (statement != null) {
                     statement.close();
                 }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-    }
     
         return libros;
     }

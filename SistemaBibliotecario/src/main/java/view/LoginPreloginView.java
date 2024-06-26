@@ -8,12 +8,12 @@ package view;
  *
  * @author Nego
  */
-public class LoginPrelogin extends javax.swing.JFrame {
+public class LoginPreloginView extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginPrelogin
      */
-    public LoginPrelogin() {
+    public LoginPreloginView() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -100,7 +100,7 @@ public class LoginPrelogin extends javax.swing.JFrame {
 
     private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
         // TODO add your handling code here:
-        LoginInicio inicio = new LoginInicio();
+        LoginInicioView inicio = new LoginInicioView();
         inicio.setVisible(true);
         this.setVisible(false);        
         
@@ -129,20 +129,21 @@ public class LoginPrelogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginPrelogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPreloginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginPrelogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPreloginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginPrelogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPreloginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginPrelogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginPreloginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginPrelogin().setVisible(true);
+                new LoginPreloginView().setVisible(true);
             }
         });
     }
