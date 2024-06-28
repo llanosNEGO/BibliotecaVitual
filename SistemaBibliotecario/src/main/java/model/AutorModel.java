@@ -2,14 +2,14 @@
 package model;
 
 public class AutorModel {
-    private int idAutor;
+    private int id;
     private String nombre;
 
     public AutorModel() {
     }
 
-    public AutorModel(int idAutor, String nombre) {
-        this.idAutor = idAutor;
+    public AutorModel(int id, String nombre) {
+        this.id = id;
         this.nombre = nombre;
     }
 
@@ -17,12 +17,12 @@ public class AutorModel {
         this.nombre = nombre;
     }
 
-    public int getIdAutor() {
-        return idAutor;
+    public int getId() {
+        return id;
     }
 
-    public void setIdAutor(int idAutor) {
-        this.idAutor = idAutor;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -35,7 +35,7 @@ public class AutorModel {
 
     @Override
     public String toString() {
-        return "Autor{" + "idAutor=" + idAutor + ", nombre=" + nombre + '}';
+        return "Autor{" + "idAutor=" + id + ", nombre=" + nombre + '}';
     }
     
     

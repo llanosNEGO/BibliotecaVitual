@@ -29,7 +29,7 @@ public class LibroService implements ICrudService<LibroModel> {
     
     @Override
     public void insertInto(LibroModel entity) {
-        String sql = "INSERT INTO libro(titulo, sinopsis, url_image, isb, anio_publicacion, id_autor, id_editorial) VALUES (?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO libro(titulo, sinopsis, url_image, isb, anio_publicacion, id_author, id_editorial) VALUES (?,?,?,?,?,?,?);";
         PreparedStatement statement = null;
         try {
             statement = conexion.getConnection().prepareStatement(sql);
@@ -38,7 +38,7 @@ public class LibroService implements ICrudService<LibroModel> {
             statement.setString(3, entity.getUrlImage());
             statement.setString(4, entity.getIsbn());
             statement.setString(5, entity.getAnioPublicacion().toString());
-            statement.setInt(6, entity.getIdAutor());
+            //statement.setInt(6, entity.getIdAutor());
             statement.setInt(7, entity.getIdEditorial());
 
             // Execute the statement
@@ -72,7 +72,7 @@ public class LibroService implements ICrudService<LibroModel> {
             libro.setUrlImage(resultSet.getString("url_image"));
             libro.setIsbn(resultSet.getString("isb"));
             libro.setAnioPublicacion(anioPublicacionDate);
-            libro.setIdAutor(resultSet.getInt("id_autor"));
+            //libro.setAutor(resultSet.getInt("id_author"));
             libro.setIdEditorial(resultSet.getInt("id_editorial"));
                 
            
@@ -124,6 +124,7 @@ public class LibroService implements ICrudService<LibroModel> {
         List<LibroModel> libros = new ArrayList<>();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        AutorService autorService = new AutorService();
     
         try {
             statement = conexion.getConnection().prepareStatement(sql);
@@ -141,7 +142,7 @@ public class LibroService implements ICrudService<LibroModel> {
                 libro.setUrlImage(resultSet.getString("url_image"));
                 libro.setIsbn(resultSet.getString("isb"));
                 libro.setAnioPublicacion(anioPublicacionDate);
-                libro.setIdAutor(resultSet.getInt("id_autor"));
+                libro.setAutor(autorService.selectById(resultSet.getInt("id_author")));
                 libro.setIdEditorial(resultSet.getInt("id_editorial"));
                 libros.add(libro);
             }

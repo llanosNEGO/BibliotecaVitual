@@ -10,16 +10,16 @@ public class LibroModel {
     private String urlImage;
     private String isbn;
     private Date anioPublicacion;
-    private int idAutor;
+    private AutorModel autor;
     private int idEditorial;
 
-    public LibroModel(String titulo, String Sinopsis, String urlImage, String isbn, Date añoPublicacion, int idAutor, int idEditorial) {
+    public LibroModel(String titulo, String Sinopsis, String urlImage, String isbn, Date añoPublicacion, AutorModel autor, int idEditorial) {
         this.titulo = titulo;
         this.sinopsis = Sinopsis;
         this.urlImage = urlImage;
         this.isbn = isbn;
         this.anioPublicacion = añoPublicacion;
-        this.idAutor = idAutor;
+        this.autor = autor;
         this.idEditorial = idEditorial;
     }
 
@@ -66,12 +66,12 @@ public class LibroModel {
         this.anioPublicacion = añoPublicacion;
     }
 
-    public int getIdAutor() {
-        return idAutor;
+    public AutorModel getAutor() {
+        return autor;
     }
 
-    public void setIdAutor(int idAutor) {
-        this.idAutor = idAutor;
+    public void setAutor(AutorModel idAutor) {
+        this.autor = idAutor;
     }
 
     public int getIdEditorial() {
@@ -93,7 +93,7 @@ public class LibroModel {
         
     @Override
     public String toString() {
-        return "LibroModel{" + "titulo=" + titulo + ", Sinopsis=" + sinopsis + ", urlImage=" + urlImage + ", isbn=" + isbn + ", a\u00f1oPublicacion=" + anioPublicacion + ", idAutor=" + idAutor + ", idEditorial=" + idEditorial + '}';
+        return "LibroModel{" + "titulo=" + titulo + ", Sinopsis=" + sinopsis + ", urlImage=" + urlImage + ", isbn=" + isbn + ", a\u00f1oPublicacion=" + anioPublicacion + ", idAutor=" + id + ", idEditorial=" + idEditorial + '}';
     }
     
 

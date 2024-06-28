@@ -3,20 +3,40 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package view;
-
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import model.LibroModel;
 /**
  *
  * @author Hamer
  */
 public class BookInfoPanelView extends javax.swing.JPanel {
-
+    LibroModel book;
     /**
      * Creates new form BookInfo
      */
     public BookInfoPanelView() {
         initComponents();
+        
+    }
+    public BookInfoPanelView(LibroModel book) {
+        initComponents();
+        this.book = book;
+        displayInfo();
     }
 
+    public void displayInfo(){
+        Icon icon = new ImageIcon(
+               new ImageIcon(getClass().getResource(book.getUrlImage())).getImage().getScaledInstance(200, 300, 0)
+        );
+        bookImage.setIcon(icon);
+        tituloLabel.setText(book.getTitulo());
+        isbnLabel.setText(book.getIsbn());
+        autorLabel.setText(book.getAutor().getNombre());
+        sinopsisPane.setText(book.getSinopsis());
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,44 +46,108 @@ public class BookInfoPanelView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        isbnLabel = new javax.swing.JLabel();
+        autorLabel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        bookImage = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        sinopsisPane = new javax.swing.JTextPane();
+        tituloLabel = new javax.swing.JLabel();
 
         setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jButton1.setText("jButton1");
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 410, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 216, Short.MAX_VALUE)
+        jTextField1.setText("jTextField1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 410, 319, -1));
+
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 406, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(592, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(237, Short.MAX_VALUE))
-        );
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 449, 406, -1));
+
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel3.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("ISBN:");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 30, -1));
+
+        jLabel3.setText("Autor:");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+
+        jLabel4.setText("Editorial");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+
+        isbnLabel.setText("jLabel5");
+        jPanel3.add(isbnLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 140, -1));
+
+        autorLabel.setText("jLabel5");
+        jPanel3.add(autorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 140, -1));
+
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 220, 150));
+
+        jLabel2.setText("SINOPSIS");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, -1, -1));
+        add(bookImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 230, 310));
+
+        sinopsisPane.setBackground(new java.awt.Color(255, 255, 255));
+        sinopsisPane.setBorder(null);
+        sinopsisPane.setForeground(new java.awt.Color(0, 0, 0));
+        sinopsisPane.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        sinopsisPane.setEnabled(false);
+        jScrollPane2.setViewportView(sinopsisPane);
+
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, 390, 250));
+
+        tituloLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        tituloLabel.setText("jLabel5");
+        add(tituloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 420, 30));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel autorLabel;
+    private javax.swing.JLabel bookImage;
+    private javax.swing.JLabel isbnLabel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextPane sinopsisPane;
+    private javax.swing.JLabel tituloLabel;
     // End of variables declaration//GEN-END:variables
 }
