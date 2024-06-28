@@ -46,7 +46,7 @@
               <Group type="102" attributes="0">
                   <Component id="menuPanel" min="-2" pref="227" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="content" max="32767" attributes="0"/>
+                  <Component id="content" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

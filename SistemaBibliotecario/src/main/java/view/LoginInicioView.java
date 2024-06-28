@@ -74,7 +74,7 @@ public class LoginInicioView extends javax.swing.JFrame {
         getContentPane().add(jButtonRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, -1, -1));
 
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/simple-background-texture-blue-blue-background-wallpaper-preview.jpg"))); // NOI18N
-        getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, -1));
+        getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

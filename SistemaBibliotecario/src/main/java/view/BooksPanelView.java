@@ -13,6 +13,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -54,6 +55,7 @@ public class BooksPanelView extends javax.swing.JPanel {
         jMenuItem1.setText("jMenuItem1");
 
         setBackground(new java.awt.Color(204, 208, 207));
+        setMinimumSize(new java.awt.Dimension(842, 535));
         setPreferredSize(new java.awt.Dimension(861, 535));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -103,6 +105,7 @@ public class BooksPanelView extends javax.swing.JPanel {
         js = new JScrollPane(t1);
         js.setSize(842,535);
         js.setLocation(0,0);
+        js.setBorder(BorderFactory.createEmptyBorder());
         add(js, BorderLayout.CENTER);
         repaint();
         revalidate();

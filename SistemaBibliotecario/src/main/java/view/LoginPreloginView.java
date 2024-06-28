@@ -4,6 +4,9 @@
  */
 package view;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Nego
@@ -16,6 +19,13 @@ public class LoginPreloginView extends javax.swing.JFrame {
     public LoginPreloginView() {
         initComponents();
         this.setLocationRelativeTo(null);
+        Icon icon = new ImageIcon(
+               new ImageIcon(getClass().getResource("/imagenes/login.jpg")).getImage().getScaledInstance(imageLabel.getWidth(), imageLabel.getHeight(), 0)
+        );
+        imageLabel.setIcon(icon);
+        jButtonSalir.setFocusPainted(false);
+        jButtonSalir.setBorderPainted(false);
+        jButtonSalir.setContentAreaFilled(false);
     }
 
     /**
@@ -27,84 +37,87 @@ public class LoginPreloginView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelInicio = new javax.swing.JLabel();
-        jLabelUsuario = new javax.swing.JLabel();
-        jLabelpassword = new javax.swing.JLabel();
-        jTextFieldUsuario = new javax.swing.JTextField();
-        jTextFieldpassword = new javax.swing.JTextField();
-        jLabeliconuser = new javax.swing.JLabel();
-        jLabeliconAdmi = new javax.swing.JLabel();
         jButtonSalir = new javax.swing.JButton();
-        jButtonRegresar = new javax.swing.JButton();
-        jButtonIngresar = new javax.swing.JButton();
-        jLabelFondo = new javax.swing.JLabel();
+        imageLabel = new javax.swing.JLabel();
+        bg = new javax.swing.JPanel();
+        jTextFieldpassword = new javax.swing.JTextField();
+        jLabelpassword = new javax.swing.JLabel();
+        jLabelUsuario = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelInicio.setFont(new java.awt.Font("Segoe UI Symbol", 1, 36)); // NOI18N
-        jLabelInicio.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelInicio.setText("INICIAR SESION");
-        getContentPane().add(jLabelInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 290, 50));
-
-        jLabelUsuario.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        jLabelUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelUsuario.setText("USUARIO");
-        getContentPane().add(jLabelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, -1, -1));
-
-        jLabelpassword.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
-        jLabelpassword.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelpassword.setText("CONTRASEÑA");
-        getContentPane().add(jLabelpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, -1, -1));
-        getContentPane().add(jTextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 250, 30));
-        getContentPane().add(jTextFieldpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 250, 30));
-
-        jLabeliconuser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Userlog.png"))); // NOI18N
-        getContentPane().add(jLabeliconuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, -1, -1));
-
-        jLabeliconAdmi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pass.png"))); // NOI18N
-        getContentPane().add(jLabeliconAdmi, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
-
+        jButtonSalir.setBackground(new java.awt.Color(255, 255, 255));
         jButtonSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonSalir.setText("Salir");
+        jButtonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/exit3.png"))); // NOI18N
+        jButtonSalir.setBorder(null);
+        jButtonSalir.setBorderPainted(false);
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, -1, -1));
+        getContentPane().add(jButtonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 10, -1, -1));
 
-        jButtonRegresar.setBackground(new java.awt.Color(51, 102, 255));
-        jButtonRegresar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonRegresar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonRegresar.setText("Regresar");
-        jButtonRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRegresarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, -1, -1));
+        imageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/login.jpg"))); // NOI18N
+        imageLabel.setText("jLabel1");
+        getContentPane().add(imageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 0, 370, 470));
 
-        jButtonIngresar.setBackground(new java.awt.Color(51, 102, 255));
-        jButtonIngresar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButtonIngresar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonIngresar.setText("Ingresar");
-        getContentPane().add(jButtonIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 320, -1, -1));
+        bg.setBackground(new java.awt.Color(255, 255, 255));
+        bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/simple-background-texture-blue-blue-background-wallpaper-preview.jpg"))); // NOI18N
-        getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 619, 386));
+        jTextFieldpassword.setForeground(new java.awt.Color(204, 204, 204));
+        jTextFieldpassword.setText("Ingrese su nombre de usuario");
+        jTextFieldpassword.setBorder(null);
+        bg.add(jTextFieldpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 350, 30));
+
+        jLabelpassword.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
+        jLabelpassword.setText("Contraseña");
+        bg.add(jLabelpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
+
+        jLabelUsuario.setBackground(new java.awt.Color(0, 0, 0));
+        jLabelUsuario.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
+        jLabelUsuario.setText("Usuario");
+        bg.add(jLabelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+
+        jLabel1.setText("No tienes cuenta?");
+        bg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 100, -1));
+
+        jButton1.setBackground(new java.awt.Color(74, 92, 106));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Ingresar");
+        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        bg.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 370, 40));
+
+        jLabel2.setFont(new java.awt.Font("Playwrite NG Modern", 1, 18)); // NOI18N
+        jLabel2.setText("INICIAR SESIÓN");
+        bg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 230, -1));
+        bg.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 360, 10));
+
+        jPasswordField1.setForeground(new java.awt.Color(204, 204, 204));
+        jPasswordField1.setText("jPasswordField1");
+        jPasswordField1.setBorder(null);
+        bg.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 360, 30));
+        bg.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 360, 10));
+
+        jLabel3.setForeground(new java.awt.Color(37, 55, 69));
+        jLabel3.setText("registrarse");
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 70, -1));
+
+        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
-        // TODO add your handling code here:
-        LoginInicioView inicio = new LoginInicioView();
-        inicio.setVisible(true);
-        this.setVisible(false);        
-        
-    }//GEN-LAST:event_jButtonRegresarActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         // TODO add your handling code here:
@@ -123,7 +136,7 @@ public class LoginPreloginView extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -149,16 +162,18 @@ public class LoginPreloginView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonIngresar;
-    private javax.swing.JButton jButtonRegresar;
+    private javax.swing.JPanel bg;
+    private javax.swing.JLabel imageLabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonSalir;
-    private javax.swing.JLabel jLabelFondo;
-    private javax.swing.JLabel jLabelInicio;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelUsuario;
-    private javax.swing.JLabel jLabeliconAdmi;
-    private javax.swing.JLabel jLabeliconuser;
     private javax.swing.JLabel jLabelpassword;
-    private javax.swing.JTextField jTextFieldUsuario;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextFieldpassword;
     // End of variables declaration//GEN-END:variables
 }

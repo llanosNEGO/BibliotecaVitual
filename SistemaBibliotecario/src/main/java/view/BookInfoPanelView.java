@@ -35,6 +35,7 @@ public class BookInfoPanelView extends javax.swing.JPanel {
         autorLabel.setText(book.getAutor().getNombre());
         sinopsisPane.setText(book.getSinopsis());
         
+        
     }
     
     /**
@@ -55,25 +56,35 @@ public class BookInfoPanelView extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         isbnLabel = new javax.swing.JLabel();
         autorLabel = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         bookImage = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         sinopsisPane = new javax.swing.JTextPane();
         tituloLabel = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        jButton2 = new javax.swing.JButton();
+        jSpinner1 = new javax.swing.JSpinner();
 
         setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
+        setMinimumSize(new java.awt.Dimension(842, 535));
+        setPreferredSize(new java.awt.Dimension(842, 535));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("jButton1");
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 410, -1, -1));
+        jButton1.setText("Comentar");
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 360, -1, -1));
 
-        jTextField1.setText("jTextField1");
+        jTextField1.setForeground(new java.awt.Color(204, 204, 204));
+        jTextField1.setText("Comentario");
+        jTextField1.setBorder(null);
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
-        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 410, 319, -1));
+        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 360, 319, -1));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -85,53 +96,76 @@ public class BookInfoPanelView extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 130, Short.MAX_VALUE)
         );
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(402, 449, 406, -1));
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 406, 130));
 
-        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel3.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel3.setForeground(new java.awt.Color(204, 208, 207));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
         jLabel1.setText("ISBN:");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 30, -1));
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 40, -1));
 
+        jLabel3.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
         jLabel3.setText("Autor:");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, -1));
 
+        jLabel4.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
         jLabel4.setText("Editorial");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, -1, -1));
 
+        isbnLabel.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
         isbnLabel.setText("jLabel5");
         jPanel3.add(isbnLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 140, -1));
 
+        autorLabel.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
         autorLabel.setText("jLabel5");
         jPanel3.add(autorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 140, -1));
+        jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 190, 20));
+        jPanel3.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 190, 10));
+        jPanel3.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 190, 20));
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 220, 150));
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 220, 130));
 
+        jLabel2.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
         jLabel2.setText("SINOPSIS");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, -1, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, -1, -1));
         add(bookImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 230, 310));
 
-        sinopsisPane.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setBorder(null);
+
         sinopsisPane.setBorder(null);
-        sinopsisPane.setForeground(new java.awt.Color(0, 0, 0));
+        sinopsisPane.setFont(new java.awt.Font("Playwrite NG Modern", 0, 12)); // NOI18N
         sinopsisPane.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         sinopsisPane.setEnabled(false);
         jScrollPane2.setViewportView(sinopsisPane);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, 390, 250));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 390, 200));
 
-        tituloLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        tituloLabel.setText("jLabel5");
-        add(tituloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 420, 30));
+        tituloLabel.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
+        tituloLabel.setText("Titulo");
+        add(tituloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, 420, 30));
+        add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, 320, -1));
+
+        jButton2.setText("PRESTAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 500, -1, 30));
+        add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 500, 40, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -139,6 +173,7 @@ public class BookInfoPanelView extends javax.swing.JPanel {
     private javax.swing.JLabel bookImage;
     private javax.swing.JLabel isbnLabel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -146,6 +181,11 @@ public class BookInfoPanelView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextPane sinopsisPane;
     private javax.swing.JLabel tituloLabel;

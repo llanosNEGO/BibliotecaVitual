@@ -15,8 +15,8 @@ view\AdminView$2.class
 view\AdminView.class
 view\BooksPanelView$1.class
 view\UserView$1.class
+view\BookInfoPanelView$2.class
 view\BooksPanelView.class
-view\LoginPreloginView$3.class
 model\AdministradorModel.class
 model\AutorModel.class
 service\ICrudService.class
