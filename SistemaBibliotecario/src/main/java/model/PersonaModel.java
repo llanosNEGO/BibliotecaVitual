@@ -1,41 +1,54 @@
 package model;
 
 public abstract class PersonaModel {
-    private int codigo;
-    private String nombre;
+   
+    private String nombres;
+    private String apellidos;
+    private String dni;
+    private String direccion;
     private String email;
-    private String contraseña;
+
+    public PersonaModel(String nombres, String apellidos, String dni, String direccion, String email) {
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.dni = dni;
+        this.direccion = direccion;
+        this.email = email;
+    }
 
     public PersonaModel() {
     }
 
-    public PersonaModel(int codigo, String nombre, String email, String contraseña) {
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.email = email;
-        this.contraseña = contraseña;
+    public String getNombres() {
+        return nombres;
     }
 
-    public PersonaModel(String nombre, String email, String contraseña) {
-        this.nombre = nombre;
-        this.email = email;
-        this.contraseña = contraseña;
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getDni() {
+        return dni;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
     public String getEmail() {
@@ -45,18 +58,10 @@ public abstract class PersonaModel {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    
+    
 
-    public String getContraseña() {
-        return contraseña;
-    }
-
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
-    }
-
-    @Override
-    public String toString() {
-        return "Persona{" + "codigo=" + codigo + ", nombre=" + nombre + ", email=" + email + ", contrase\u00f1a=" + contraseña + '}';
-    }
+    
 
 }

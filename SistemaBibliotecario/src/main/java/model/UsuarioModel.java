@@ -11,45 +11,57 @@ import java.util.Calendar;
  * @author javm_
  */
 public class UsuarioModel extends PersonaModel{
-    private Calendar fechaRegistro;
-    private int administradorId;
+    private int id;
+    private String username;
+    private String password;
+    private int isAdmin;
 
     public UsuarioModel() {
     }
 
-    public UsuarioModel(Calendar fechaRegistro, int administradorId, int codigo, String nombre, String email, String contraseña) {
-        super(codigo, nombre, email, contraseña);
-        this.fechaRegistro = fechaRegistro;
-        this.administradorId = administradorId;
+    public UsuarioModel(String username, String password, int isAdmin, String nombres, String apellidos, String dni, String direccion, String email) {
+        super(nombres, apellidos, dni, direccion, email);
+        this.username = username;
+        this.password = password;
+        this.isAdmin = isAdmin;
     }
 
-    public UsuarioModel(Calendar fechaRegistro, int administradorId, String nombre, String email, String contraseña) {
-        super(nombre, email, contraseña);
-        this.fechaRegistro = fechaRegistro;
-        this.administradorId = administradorId;
+    public String getUsername() {
+        return username;
     }
 
-    public Calendar getFechaRegistro() {
-        return fechaRegistro;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setFechaRegistro(Calendar fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
+    public String getPassword() {
+        return password;
     }
 
-    public int getAdministradorId() {
-        return administradorId;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setAdministradorId(int administradorId) {
-        this.administradorId = administradorId;
+    public int getIsAdmin() {
+        return isAdmin;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" + "fechaRegistro=" + fechaRegistro + ", administradorId=" + administradorId + '}';
+    public void setIsAdmin(int isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     
+    @Override
+    public String toString() {
+        return "UsuarioModel{" + "username=" + username + ", password=" + password + ", isAdmin=" + isAdmin + '}';
+    }   
     
 }

@@ -1,7 +1,8 @@
 package model;
 
-import java.util.Calendar;
-import java.util.Date;
+
+import java.time.Year;
+
 
 public class LibroModel {
     private int id;
@@ -9,18 +10,18 @@ public class LibroModel {
     private String sinopsis;
     private String urlImage;
     private String isbn;
-    private Date anioPublicacion;
+    private Year anioPublicacion;
     private AutorModel autor;
-    private int idEditorial;
+    private EditorialModel editorial;
 
-    public LibroModel(String titulo, String Sinopsis, String urlImage, String isbn, Date añoPublicacion, AutorModel autor, int idEditorial) {
+    public LibroModel(String titulo, String Sinopsis, String urlImage, String isbn, Year añoPublicacion, AutorModel autor, EditorialModel editorial) {
         this.titulo = titulo;
         this.sinopsis = Sinopsis;
         this.urlImage = urlImage;
         this.isbn = isbn;
         this.anioPublicacion = añoPublicacion;
         this.autor = autor;
-        this.idEditorial = idEditorial;
+        this.editorial = editorial;
     }
 
     public LibroModel() {
@@ -58,11 +59,11 @@ public class LibroModel {
         this.isbn = isbn;
     }
 
-    public Date getAnioPublicacion() {
+    public Year getAnioPublicacion() {
         return anioPublicacion;
     }
 
-    public void setAnioPublicacion(Date añoPublicacion) {
+    public void setAnioPublicacion(Year añoPublicacion) {
         this.anioPublicacion = añoPublicacion;
     }
 
@@ -74,12 +75,12 @@ public class LibroModel {
         this.autor = idAutor;
     }
 
-    public int getIdEditorial() {
-        return idEditorial;
+    public EditorialModel getEditorial() {
+        return editorial;
     }
 
-    public void setIdEditorial(int idEditorial) {
-        this.idEditorial = idEditorial;
+    public void setEditorial(EditorialModel editorial) {
+        this.editorial = editorial;
     }
 
     public int getId() {
@@ -93,7 +94,7 @@ public class LibroModel {
         
     @Override
     public String toString() {
-        return "LibroModel{" + "titulo=" + titulo + ", Sinopsis=" + sinopsis + ", urlImage=" + urlImage + ", isbn=" + isbn + ", a\u00f1oPublicacion=" + anioPublicacion + ", idAutor=" + id + ", idEditorial=" + idEditorial + '}';
+        return "LibroModel{" + "titulo=" + titulo + ", Sinopsis=" + sinopsis + ", urlImage=" + urlImage + ", isbn=" + isbn + ", a\u00f1oPublicacion=" + anioPublicacion + ", idAutor=" + id + ", idEditorial=" + editorial + '}';
     }
     
 

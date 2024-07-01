@@ -5,7 +5,7 @@
 package view;
 
 import java.awt.BorderLayout;
-import view.LoginInicioView;
+
 import java.awt.Color;
 import java.awt.Image;
 import javax.swing.Icon;
@@ -19,8 +19,8 @@ import javax.swing.JScrollPane;
  * @author Hamer
  */
 public class UserView extends javax.swing.JFrame {
-    private Color bgColor;
-    private Color focusColor;
+    private Color bgColor, focusColor;
+    int xMouse, yMouse;
     /**
      * Creates new form Login
      */
@@ -31,6 +31,8 @@ public class UserView extends javax.swing.JFrame {
         buttonBook.setFocusable(true);
         bgColor = new Color(39, 60, 65); 
         focusColor = new Color(69, 87, 91);
+        barPanel.setBackground(new Color(0,0,0, 0));
+        
         //userImage = new components.CircularLabel();
         //userImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Userlog.png")));
         //bookViewPanel1.setBookImage(new javax.swing.ImageIcon(getClass().getResource("/booksImages/9786123198640.jpg")));
@@ -39,7 +41,7 @@ public class UserView extends javax.swing.JFrame {
         
         
         BooksPanelView b1 = new BooksPanelView();
-        b1.setSize(836,535);
+        b1.setSize(842,535);
         b1.setLocation(0, 0);
         
       
@@ -47,6 +49,7 @@ public class UserView extends javax.swing.JFrame {
         content.add(b1);
         content.repaint();
         content.revalidate();
+        SetIconLabel(logoutIconLabel, "/icons/logout.png");
         
     }
 
@@ -66,11 +69,20 @@ public class UserView extends javax.swing.JFrame {
         buttonReserve = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         userImage = new uicomponents.CircularLabel();
+        logoutIconLabel = new javax.swing.JLabel();
+        barPanel = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("BOOKS");
+        setBackground(new java.awt.Color(255, 255, 255));
+        setLocationByPlatform(true);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        bg.setBackground(new java.awt.Color(204, 208, 207));
+        bg.setBackground(new java.awt.Color(255, 255, 255));
+        bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         menuPanel.setBackground(new java.awt.Color(39, 60, 65));
 
@@ -113,7 +125,7 @@ public class UserView extends javax.swing.JFrame {
             buttonBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonBookLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         buttonBookLayout.setVerticalGroup(
@@ -155,7 +167,7 @@ public class UserView extends javax.swing.JFrame {
             buttonLendsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonLendsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         buttonLendsLayout.setVerticalGroup(
@@ -192,7 +204,7 @@ public class UserView extends javax.swing.JFrame {
             buttonGiveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonGiveLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         buttonGiveLayout.setVerticalGroup(
@@ -229,7 +241,7 @@ public class UserView extends javax.swing.JFrame {
             buttonReserveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonReserveLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                 .addContainerGap())
         );
         buttonReserveLayout.setVerticalGroup(
@@ -246,17 +258,36 @@ public class UserView extends javax.swing.JFrame {
         userImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         userImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Userlog.png"))); // NOI18N
 
+        logoutIconLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutIconLabel.setMaximumSize(new java.awt.Dimension(24, 24));
+        logoutIconLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutIconLabelMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(buttonBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(buttonLends, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(buttonGive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(buttonReserve, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonLends, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonGive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(buttonReserve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
             .addGroup(menuPanelLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addComponent(userImage, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(userImage, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(logoutIconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,10 +302,40 @@ public class UserView extends javax.swing.JFrame {
                 .addComponent(buttonGive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(buttonReserve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                .addComponent(logoutIconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        content.setBackground(new java.awt.Color(204, 208, 207));
+        bg.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 227, 570));
+
+        barPanel.setBackground(new java.awt.Color(255, 255, 255));
+        barPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                barPanelMouseDragged(evt);
+            }
+        });
+        barPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                barPanelMousePressed(evt);
+            }
+        });
+        barPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("X");
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        barPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 0, 30, -1));
+
+        bg.add(barPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 20));
+
+        content.setBackground(new java.awt.Color(255, 255, 255));
         content.setMinimumSize(new java.awt.Dimension(842, 535));
         content.setPreferredSize(new java.awt.Dimension(842, 535));
 
@@ -282,38 +343,16 @@ public class UserView extends javax.swing.JFrame {
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 842, Short.MAX_VALUE)
+            .addGap(0, 850, Short.MAX_VALUE)
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 540, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
-        bg.setLayout(bgLayout);
-        bgLayout.setHorizontalGroup(
-            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bgLayout.createSequentialGroup()
-                .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        bgLayout.setVerticalGroup(
-            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(menuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        bg.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 850, 540));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -329,12 +368,13 @@ public class UserView extends javax.swing.JFrame {
 
     private void buttonBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonBookMouseClicked
         BooksPanelView b1 = new BooksPanelView();
-        b1.setSize(836,535);
+        b1.setSize(842,535);
         b1.setLocation(0, 0);
         content.removeAll();
         content.add(b1, BorderLayout.CENTER);
         content.repaint();
         content.revalidate();
+       
         
     }//GEN-LAST:event_buttonBookMouseClicked
 
@@ -392,7 +432,7 @@ public class UserView extends javax.swing.JFrame {
     private void buttonLendsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLendsMouseClicked
         // TODO add your handling code here:
         PrestamosPanelView pv1 = new PrestamosPanelView();
-        pv1.setSize(836,535);
+        pv1.setSize(842,535);
         pv1.setLocation(0, 0);
         content.removeAll();
         content.add(pv1, BorderLayout.CENTER);
@@ -403,7 +443,7 @@ public class UserView extends javax.swing.JFrame {
     private void buttonGiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGiveMouseClicked
         // TODO add your handling code here:
         DonacionesPanelView dv1 = new DonacionesPanelView();
-        dv1.setSize(836,535);
+        dv1.setSize(842,535);
         dv1.setLocation(0, 0);
         content.removeAll();
         content.add(dv1, BorderLayout.CENTER);
@@ -414,24 +454,49 @@ public class UserView extends javax.swing.JFrame {
     private void buttonReserveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonReserveMouseClicked
         // TODO add your handling code here:
         ReservasPanelView rv1 = new ReservasPanelView();
-        rv1.setSize(836,535);
+        rv1.setSize(842,535);
         rv1.setLocation(0, 0);
         content.removeAll();
         content.add(rv1, BorderLayout.CENTER);
         content.revalidate();
         content.repaint();
     }//GEN-LAST:event_buttonReserveMouseClicked
+
+    private void barPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barPanelMousePressed
+        // TODO add your handling code here:
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_barPanelMousePressed
+
+    private void barPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barPanelMouseDragged
+        // TODO add your handling code here:
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x-xMouse, y-yMouse);
+        
+    }//GEN-LAST:event_barPanelMouseDragged
+
+    private void logoutIconLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutIconLabelMouseClicked
+        // TODO add your handling code here:
+        Login login = new Login();
+        login.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_logoutIconLabelMouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jLabel5MouseClicked
     
     public JPanel getContent(){
         return content;
     }
-    private void SetImageLabel(JLabel labelName, String root){
-        //ImageIcon image = new ImageIcon(root);
-        //Icon icon = new ImageIcon(
-           //     image.getImage().getScaledInstance(labelName.getWidth(), labelName.getHeight(), Image.SCALE_DEFAULT)
-        //);
-        labelName.setIcon(new ImageIcon(getClass().getResource("/imagenes/Userlog.png")));
-        this.repaint();
+    private void SetIconLabel(JLabel label, String url){
+        Icon icon = new ImageIcon(
+           new ImageIcon(getClass().getResource(url)).getImage().getScaledInstance(label.getWidth(), label.getHeight(), 0)
+        );
+        
+        label.setIcon(icon);
         
     }
     /**
@@ -473,6 +538,7 @@ public class UserView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel barPanel;
     private javax.swing.JPanel bg;
     private javax.swing.JPanel buttonBook;
     private javax.swing.JPanel buttonGive;
@@ -483,6 +549,8 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel logoutIconLabel;
     private javax.swing.JPanel menuPanel;
     private uicomponents.CircularLabel userImage;
     // End of variables declaration//GEN-END:variables

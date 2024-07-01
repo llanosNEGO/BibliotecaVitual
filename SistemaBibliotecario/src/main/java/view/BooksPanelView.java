@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package view;
+import dao.BookDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
@@ -10,6 +11,7 @@ import model.LibroModel;
 import service.LibroService;
 import uicomponents.BookPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -18,31 +20,23 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import service.*;
 /**
  *
  * @author Hamer
  */
 public class BooksPanelView extends javax.swing.JPanel {
     
-    LibroService bookService = new LibroService();
-    List<LibroModel> libros;
-    JPanel t1;
-    JScrollPane js;
+    private LibroService bookService;
+    private List<LibroModel> libros;
+    private JPanel bookGalleryPanel;
+    private JScrollPane jScrollPane;
     
     public BooksPanelView() {
-        initComponents(); 
-        /*BookPanel bookView = new BookPanel("asa", "dfd", new javax.swing.ImageIcon(getClass().getResource("/booksImages/9786123198640.jpg")));
-        BookPanel bookView1 = new BookPanel("asa", "dfd", new javax.swing.ImageIcon(getClass().getResource("/booksImages/9786123198640.jpg")));
-        BookPanel bookView2 = new BookPanel("asa", "dfd", new javax.swing.ImageIcon(getClass().getResource("/booksImages/9781400334780.jpg")));
-        BookPanel bookView3 = new BookPanel("hamer", "dfd", new javax.swing.ImageIcon(getClass().getResource("/booksImages/9781400334780.jpg")));
-        BookPanel bookView4 = new BookPanel("12323", "dfd", new javax.swing.ImageIcon(getClass().getResource("/booksImages/9786123198640.jpg")));
-        BookPanel bookView5 = new BookPanel("asa", "dfd", new javax.swing.ImageIcon(getClass().getResource("/booksImages/9781400334780.jpg")));
-        BookPanel bookView6= new BookPanel("asa", "dfd", new javax.swing.ImageIcon(getClass().getResource("/booksImages/9781400334780.jpg")));
-        BookPanel bookView7 = new BookPanel("asa", "dfd", new javax.swing.ImageIcon(getClass().getResource("/booksImages/9786123198640.jpg")));
-        BookPanel bookView8 = new BookPanel("hamer", "dfd", new javax.swing.ImageIcon(getClass().getResource("/booksImages/9786123198640.jpg")));
-        BookPanel bookView9 = new BookPanel("12323", "dfd", new javax.swing.ImageIcon(getClass().getResource("/booksImages/9786123198640.jpg")));
-        //layout.addLayoutComponent(TOOL_TIP_TEXT_KEY, bookView);*/
-        paintElements();
+       initComponents();
+       this.bookService = new LibroService(new BookDAO());
+       setSize(842, 535);
+        displayBooks();
     }
 
    
@@ -56,7 +50,7 @@ public class BooksPanelView extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(204, 208, 207));
         setMinimumSize(new java.awt.Dimension(842, 535));
-        setPreferredSize(new java.awt.Dimension(861, 535));
+        setPreferredSize(new java.awt.Dimension(842, 535));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -70,20 +64,21 @@ public class BooksPanelView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void paintElements(){
-        libros = bookService.selectAll();
-        t1 = new JPanel();
+    private void displayBooks(){
+        libros = bookService.getAllBooks();
+        bookGalleryPanel = new JPanel();
         GridLayout layout = new GridLayout(0, 3, 20, 20);         
-        t1.setLayout(layout);
-        t1.setSize(842, 535);
-        t1.setLocation(0,0);
+        bookGalleryPanel.setLayout(layout);
+        bookGalleryPanel.setSize(842, 535);
+        bookGalleryPanel.setLocation(0,0);
+        bookGalleryPanel.setBackground(new Color(255,255,255));
         for (LibroModel element : libros) {
             BookPanel bookView = new BookPanel();
             
             bookView.setBookName(element.getTitulo());
             bookView.setAuthor(element.getAutor().getNombre());
             bookView.setBookImage(element.getUrlImage());
-            t1.add(bookView); 
+            bookGalleryPanel.add(bookView); 
             System.out.println(element.getTitulo());
             
             // clickEvent to change to BookInfoPanelView
@@ -102,11 +97,11 @@ public class BooksPanelView extends javax.swing.JPanel {
             }
         });
         }
-        js = new JScrollPane(t1);
-        js.setSize(842,535);
-        js.setLocation(0,0);
-        js.setBorder(BorderFactory.createEmptyBorder());
-        add(js, BorderLayout.CENTER);
+        jScrollPane = new JScrollPane(bookGalleryPanel);
+        jScrollPane.setSize(842,535);
+        jScrollPane.setLocation(0,0);
+        jScrollPane.setBorder(BorderFactory.createEmptyBorder());
+        add(jScrollPane, BorderLayout.CENTER);
         repaint();
         revalidate();
     }

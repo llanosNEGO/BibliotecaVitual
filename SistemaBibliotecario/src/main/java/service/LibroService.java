@@ -4,166 +4,66 @@
  */
 package service;
 
-import connection.MySqlConnection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
+
+import dao.BookDAO;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.LibroModel;
 
 /**
  *
  * @author Hamer
  */
-public class LibroService implements ICrudService<LibroModel> {
+public class LibroService{
     
-    MySqlConnection conexion = new MySqlConnection();
-    
-    @Override
-    public void insertInto(LibroModel entity) {
-        String sql = "INSERT INTO libro(titulo, sinopsis, url_image, isb, anio_publicacion, id_author, id_editorial) VALUES (?,?,?,?,?,?,?);";
-        PreparedStatement statement = null;
-        try {
-            statement = conexion.getConnection().prepareStatement(sql);
-            statement.setString(1, entity.getTitulo());
-            statement.setString(2, entity.getSinopsis());
-            statement.setString(3, entity.getUrlImage());
-            statement.setString(4, entity.getIsbn());
-            statement.setString(5, entity.getAnioPublicacion().toString());
-            //statement.setInt(6, entity.getIdAutor());
-            statement.setInt(7, entity.getIdEditorial());
+    private BookDAO bookDAO;
+    private AutorService autorService;
+    private EditorialService editorialService;
 
-            // Execute the statement
-            statement.executeUpdate();
-            System.out.println("Libro insertedo existosamente!");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            
-        } 
-    }
-
-    @Override
-    public LibroModel selectById(int id) {
-        String sql = "SELECT * FROM libro WHERE id = ?;";
+    public LibroService(BookDAO bookDAO) {
         
-        LibroModel libro = new LibroModel();
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
+        this.bookDAO = bookDAO;
+    }
     
-        try {
-            statement = conexion.getConnection().prepareStatement(sql);
-            statement.setInt(1, id);
-            resultSet = statement.executeQuery();
-            String anioPublicacionStr = resultSet.getString("anio_publicacion");
-            // Convertir la cadena a Date usando SimpleDateFormat
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy"); // Ajusta el formato según cómo se almacene en la base de datos
-            Date anioPublicacionDate = dateFormat.parse(anioPublicacionStr);
-            libro.setId(resultSet.getInt("id"));
-            libro.setTitulo(resultSet.getString("titulo"));
-            libro.setSinopsis(resultSet.getString("sinopsis"));
-            libro.setUrlImage(resultSet.getString("url_image"));
-            libro.setIsbn(resultSet.getString("isb"));
-            libro.setAnioPublicacion(anioPublicacionDate);
-            //libro.setAutor(resultSet.getInt("id_author"));
-            libro.setIdEditorial(resultSet.getInt("id_editorial"));
-                
-           
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ParseException ex) {
-            Logger.getLogger(LibroService.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (resultSet != null) {
-                resultSet.close();
-                }
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+    //public  LibroService(){};
     
-        return libro;
+    
+   
+    public void insertBook(LibroModel bookEntity) {
+        
+        bookDAO.insertInto(bookEntity);
+        
     }
 
-    @Override
+    
+    public LibroModel selectBookById(int id) {
+        
+        return bookDAO.selectById(id);
+        
+        
+    }
+
+   
     public void delete(int id) {
-        String sql = "DELETE * FROM libro WHERE id = ?;";
-        /*try{
-        }catch(SQLException e){
-        }*/
+        
     }
 
-    @Override
+    
     public void update(int id, LibroModel entity) {
-        String sql = "UPDATE libro SET WHERE id = ?";
+        
     }
 
-    @Override
+    
     public List<LibroModel> search(String keyword) {
-        String sql = "SELECT ";
-        List<LibroModel> libros = new ArrayList<LibroModel>();
-        return libros;
+        return bookDAO.search(keyword);
     }
 
    
     
-    @Override
-    public List<LibroModel> selectAll() {
-        String sql = "SELECT * FROM libro;";
-        List<LibroModel> libros = new ArrayList<>();
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        AutorService autorService = new AutorService();
     
-        try {
-            statement = conexion.getConnection().prepareStatement(sql);
-            resultSet = statement.executeQuery();
+    public List<LibroModel> getAllBooks() {
         
-            while (resultSet.next()) { 
-                String anioPublicacionStr = resultSet.getString("anio_publicacion");
-                // Convertir la cadena a Date usando SimpleDateFormat
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy"); // Ajusta el formato según cómo se almacene en la base de datos
-                Date anioPublicacionDate = dateFormat.parse(anioPublicacionStr);
-                LibroModel libro = new LibroModel();
-                libro.setId(resultSet.getInt("id"));
-                libro.setTitulo(resultSet.getString("titulo"));
-                libro.setSinopsis(resultSet.getString("sinopsis"));
-                libro.setUrlImage(resultSet.getString("url_image"));
-                libro.setIsbn(resultSet.getString("isb"));
-                libro.setAnioPublicacion(anioPublicacionDate);
-                libro.setAutor(autorService.selectById(resultSet.getInt("id_author")));
-                libro.setIdEditorial(resultSet.getInt("id_editorial"));
-                libros.add(libro);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ParseException ex) {
-            Logger.getLogger(LibroService.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (resultSet != null) {
-                resultSet.close();
-                }
-                if (statement != null) {
-                    statement.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    
-        return libros;
+        return bookDAO.selectAll();
+        
     }
 
 }

@@ -11,10 +11,8 @@ import model.LibroModel;
  * @author Hamer
  */
 public class BookInfoPanelView extends javax.swing.JPanel {
-    LibroModel book;
-    /**
-     * Creates new form BookInfo
-     */
+    private LibroModel book;
+    
     public BookInfoPanelView() {
         initComponents();
         
@@ -34,6 +32,7 @@ public class BookInfoPanelView extends javax.swing.JPanel {
         isbnLabel.setText(book.getIsbn());
         autorLabel.setText(book.getAutor().getNombre());
         sinopsisPane.setText(book.getSinopsis());
+        editorialLabel.setText(book.getEditorial().getNombre());
         
         
     }
@@ -59,6 +58,7 @@ public class BookInfoPanelView extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        editorialLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         bookImage = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -68,6 +68,7 @@ public class BookInfoPanelView extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jSpinner1 = new javax.swing.JSpinner();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Impact", 0, 12)); // NOI18N
         setMinimumSize(new java.awt.Dimension(842, 535));
         setPreferredSize(new java.awt.Dimension(842, 535));
@@ -101,7 +102,8 @@ public class BookInfoPanelView extends javax.swing.JPanel {
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 406, 130));
 
-        jPanel3.setForeground(new java.awt.Color(204, 208, 207));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setForeground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
@@ -113,19 +115,23 @@ public class BookInfoPanelView extends javax.swing.JPanel {
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
-        jLabel4.setText("Editorial");
+        jLabel4.setText("Editorial:");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, -1, -1));
 
         isbnLabel.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
         isbnLabel.setText("jLabel5");
-        jPanel3.add(isbnLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 140, -1));
+        jPanel3.add(isbnLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 140, -1));
 
         autorLabel.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
         autorLabel.setText("jLabel5");
-        jPanel3.add(autorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 140, -1));
+        jPanel3.add(autorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 140, -1));
         jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 190, 20));
         jPanel3.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 190, 10));
         jPanel3.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 190, 20));
+
+        editorialLabel.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        editorialLabel.setText("jLabel5");
+        jPanel3.add(editorialLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 100, -1));
 
         add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 220, 130));
 
@@ -136,6 +142,7 @@ public class BookInfoPanelView extends javax.swing.JPanel {
 
         jScrollPane2.setBorder(null);
 
+        sinopsisPane.setBackground(new java.awt.Color(255, 255, 255));
         sinopsisPane.setBorder(null);
         sinopsisPane.setFont(new java.awt.Font("Playwrite NG Modern", 0, 12)); // NOI18N
         sinopsisPane.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -171,6 +178,7 @@ public class BookInfoPanelView extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel autorLabel;
     private javax.swing.JLabel bookImage;
+    private javax.swing.JLabel editorialLabel;
     private javax.swing.JLabel isbnLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

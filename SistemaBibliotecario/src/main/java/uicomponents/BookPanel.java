@@ -56,7 +56,15 @@ public class BookPanel extends JPanel {
         //fonts
         bookNameLabel.setFont(Fonts.CASCADIACODE.getFont());
         authorLabel.setFont(Fonts.CASCADIACODE.getFont());
-        //UserView v = new UserView();
+        
+        authorLabel.setOpaque(true);
+        bookNameLabel.setOpaque(true);
+        this.setBackground(new Color(0,0,0,0));
+        bookNameLabel.setBackground(new Color(255,255,255));
+        authorLabel.setBackground(new Color(255,255,255));
+        authorLabel.repaint();
+        
+        
         
     }
 
@@ -73,6 +81,15 @@ public class BookPanel extends JPanel {
                new ImageIcon(getClass().getResource(url)).getImage().getScaledInstance(200, 300, 0)
         );
         imageLabel.setIcon(icon);
+    }
+    
+    public void setColor(Color color){
+        authorLabel.setOpaque(true);
+        bookNameLabel.setOpaque(true);
+        this.setBackground(color);
+        bookNameLabel.setBackground(color);
+        authorLabel.setBackground(color);
+        
     }
 }
 

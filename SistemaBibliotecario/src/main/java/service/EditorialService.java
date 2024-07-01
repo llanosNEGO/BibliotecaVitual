@@ -4,41 +4,52 @@
  */
 package service;
 
+import connection.MySqlConnection;
+import dao.EditorialDAO;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import model.AutorModel;
 import model.EditorialModel;
 
 /**
  *
  * @author Hamer
  */
-public class EditorialService implements ICrudService<EditorialModel> {
-
-    @Override
-    public List<EditorialModel> selectAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+public class EditorialService{
+    
+    private EditorialDAO editorialDAO;
+    public EditorialService(EditorialDAO editorialDAO){
+        
+        this.editorialDAO = editorialDAO;
+    }
+    public List<EditorialModel> getAllEditorials() {
+       return editorialDAO.selectAll();
     }
 
-    @Override
+    
     public void insertInto(EditorialModel entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public EditorialModel selectById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
+    public EditorialModel getEditorialById(int id) {
+        return editorialDAO.selectById(id);
     }
 
-    @Override
+    
     public void delete(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
+    
     public void update(int id, EditorialModel entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
+    
     public List<EditorialModel> search(String keyword) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

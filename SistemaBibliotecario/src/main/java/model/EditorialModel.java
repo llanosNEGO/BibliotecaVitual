@@ -1,14 +1,14 @@
 package model;
 
 public class EditorialModel {
-    private int idEditorial;
+    private int id;
     private String nombre;
 
     public EditorialModel() {
     }
 
     public EditorialModel(int idEditorial, String nombre) {
-        this.idEditorial = idEditorial;
+        this.id = idEditorial;
         this.nombre = nombre;
     }
 
@@ -16,12 +16,12 @@ public class EditorialModel {
         this.nombre = nombre;
     }
 
-    public int getIdEditorial() {
-        return idEditorial;
+    public int getId() {
+        return id;
     }
 
-    public void setIdEditorial(int idEditorial) {
-        this.idEditorial = idEditorial;
+    public void setId(int idEditorial) {
+        this.id = idEditorial;
     }
 
     public String getNombre() {
@@ -34,7 +34,7 @@ public class EditorialModel {
 
     @Override
     public String toString() {
-        return "Editorial{" + "idEditorial=" + idEditorial + ", nombre=" + nombre + '}';
+        return "Editorial{" + "idEditorial=" + id + ", nombre=" + nombre + '}';
     }
     
     
