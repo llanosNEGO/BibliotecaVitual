@@ -4,55 +4,59 @@
  */
 package view;
 
+import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import model.UsuarioModel;
 
 /**
  *
  * @author Hamer
  */
 public class UserView extends javax.swing.JFrame {
+    private UsuarioModel user;
     private Color bgColor, focusColor;
     int xMouse, yMouse;
-    /**
-     * Creates new form Login
-     */
+    private Path projectDir;
+    
     public UserView() {
         
         
         initComponents();
         buttonBook.setFocusable(true);
-        bgColor = new Color(39, 60, 65); 
-        focusColor = new Color(69, 87, 91);
-        barPanel.setBackground(new Color(0,0,0, 0));
-        
-        //userImage = new components.CircularLabel();
-        //userImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Userlog.png")));
-        //bookViewPanel1.setBookImage(new javax.swing.ImageIcon(getClass().getResource("/booksImages/9786123198640.jpg")));
-        //this.setLocationRelativeTo(this);
-        //SetImageLabel(userImage, "/Imagenes/userprofile.jpg");
-        
-        
-        BooksPanelView b1 = new BooksPanelView();
-        b1.setSize(842,535);
-        b1.setLocation(0, 0);
-        
-      
-        content.removeAll();
-        content.add(b1);
-        content.repaint();
-        content.revalidate();
-        SetIconLabel(logoutIconLabel, "/icons/logout.png");
+        initializeColors();
+        configureBarPanel();
+        configureBooksPanelView();
+        setIconLabel(logoutIconLabel, "/icons/logout.png");
         
     }
+    
+     public UserView(UsuarioModel user) {
+        initComponents();
+        this.user = user;
+        initializeColors();
+        configureBarPanel();
+        configureBooksPanelView();
+        setIconLabel(logoutIconLabel, "/icons/logout.png");
+        loadUserProfilePhoto();
+    }
 
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -68,8 +72,8 @@ public class UserView extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         buttonReserve = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        userImage = new uicomponents.CircularLabel();
         logoutIconLabel = new javax.swing.JLabel();
+        userPhotoProfileLabel = new javax.swing.JLabel();
         barPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
@@ -252,12 +256,6 @@ public class UserView extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        userImage.setBackground(new java.awt.Color(255, 255, 255));
-        userImage.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        userImage.setForeground(new java.awt.Color(255, 255, 255));
-        userImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        userImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Userlog.png"))); // NOI18N
-
         logoutIconLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         logoutIconLabel.setMaximumSize(new java.awt.Dimension(24, 24));
         logoutIconLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -282,19 +280,19 @@ public class UserView extends javax.swing.JFrame {
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(menuPanelLayout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(userImage, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(menuPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(logoutIconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(logoutIconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(menuPanelLayout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(userPhotoProfileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPanelLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(userImage, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(34, 34, 34)
+                .addComponent(userPhotoProfileLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(buttonLends, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -499,6 +497,86 @@ public class UserView extends javax.swing.JFrame {
         label.setIcon(icon);
         
     }
+    
+    
+    
+    
+   private void initializeColors() {
+        bgColor = new Color(39, 60, 65);
+        focusColor = new Color(69, 87, 91);
+    }
+
+    private void configureBarPanel() {
+        barPanel.setBackground(new Color(0, 0, 0, 0));
+    }
+
+    private void configureBooksPanelView() {
+        BooksPanelView booksPanelView = new BooksPanelView();
+        booksPanelView.setSize(842, 535);
+        booksPanelView.setLocation(0, 0);
+        content.removeAll();
+        content.add(booksPanelView);
+        content.repaint();
+        content.revalidate();
+    }
+
+    private void setIconLabel(JLabel label, String iconPath) {
+        SetIconLabel(label, iconPath);
+    }
+
+    private void loadUserProfilePhoto() {
+        projectDir = Paths.get(System.getProperty("user.dir"));
+        try {
+            String profilePhotoPath = projectDir + "/src/main/resources" + user.getUrlProfilePhoto();
+            System.out.println(profilePhotoPath);
+            setCircleImageLabel(new File(profilePhotoPath), userPhotoProfileLabel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void setCircleImageLabel(File file, JLabel label) throws IOException {
+        BufferedImage master = ImageIO.read(file);
+        int diameter = Math.min(label.getWidth(), label.getHeight());
+
+    // Create the mask
+        BufferedImage mask = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = mask.createGraphics();
+        applyQualityRenderingHints(g2d);
+        g2d.fillOval(0, 0, diameter, diameter);
+        g2d.dispose();
+
+    // Scale the image to fit the circle
+        BufferedImage scaledImage = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB);
+        g2d = scaledImage.createGraphics();
+        applyQualityRenderingHints(g2d);
+        g2d.drawImage(master, 0, 0, diameter, diameter, null);
+        g2d.dispose();
+
+    // Apply the mask to the scaled image
+        BufferedImage masked = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB);
+        g2d = masked.createGraphics();
+        applyQualityRenderingHints(g2d);
+        g2d.drawImage(scaledImage, 0, 0, null);
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.DST_IN));
+        g2d.drawImage(mask, 0, 0, null);
+        g2d.dispose();
+
+    // Set the label icon
+        label.setIcon(new ImageIcon(masked));
+    }
+
+    public static void applyQualityRenderingHints(Graphics2D g2d) {
+        g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+        g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+        g2d.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -552,6 +630,6 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel logoutIconLabel;
     private javax.swing.JPanel menuPanel;
-    private uicomponents.CircularLabel userImage;
+    private javax.swing.JLabel userPhotoProfileLabel;
     // End of variables declaration//GEN-END:variables
 }

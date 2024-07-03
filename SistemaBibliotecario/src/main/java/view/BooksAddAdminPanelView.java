@@ -204,9 +204,7 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //JOptionPane.showMessageDialog(this, "Enter a valid Number", 
-          //                         "ERROR", JOptionPane.ERROR_MESSAGE);
-          
+
         isbn = isbnTextField.getText().trim();
         imagetargetDirectory = Paths.get(projectDir + "/src/main/resources/booksImages/"+ isbn +"."+ imageBookfileExtentions);
         Year year = Year.parse(yearTextField.getText().trim());

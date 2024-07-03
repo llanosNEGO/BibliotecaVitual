@@ -18,7 +18,7 @@ import model.UsuarioModel;
  * @author Hamer
  */
 public class UserDAO implements ICrudService<UsuarioModel> {
-    
+    UsuarioModel userModel = new UsuarioModel();
     MySqlConnection conexion = new MySqlConnection();
     
     @Override
@@ -27,8 +27,28 @@ public class UserDAO implements ICrudService<UsuarioModel> {
     }
 
     @Override
-    public void insertInto(UsuarioModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void insertInto(UsuarioModel user) {
+        String sql = "INSERT INTO user(username, password, email, is_admin, nombres, apellidos, dni, direccion, url_image) VALUES (?,?,?,?,?,?,?,?,?);";
+        PreparedStatement statement = null;
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getEmail());
+            statement.setInt(4, user.getIsAdmin());
+            statement.setString(5, user.getNombres());
+            statement.setString(6, user.getApellidos());
+            statement.setString(7, user.getDni());
+            statement.setString(8, user.getDireccion());
+            statement.setString(9, user.getUrlProfilePhoto());
+
+            // Execute the statement
+            statement.executeUpdate();
+            System.out.println("Usuario insertedo existosamente!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } 
     }
 
     @Override
@@ -74,6 +94,7 @@ public class UserDAO implements ICrudService<UsuarioModel> {
                 user.setPassword(resultSet.getString("password"));
                 user.setUsername(resultSet.getString("username"));
                 user.setIsAdmin(resultSet.getInt("is_admin"));
+                user.setUrlProfilePhoto(resultSet.getString("url_image"));
                 users.add(user);
             }
         } catch (SQLException e) {

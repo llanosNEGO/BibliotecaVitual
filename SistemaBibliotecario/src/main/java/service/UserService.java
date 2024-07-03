@@ -25,23 +25,21 @@ public class UserService{
     }
 
 
-    public void insertUser(UsuarioModel entity) {
-        
+    public void insertUser(UsuarioModel user) {
+        userDAO.insertInto(user);
     }
 
-    public int checkUserandPassword(String username, String password){
+    public UsuarioModel checkUserandPassword(String username, String password){
         List<UsuarioModel> users = userDAO.selectByUsername(username);
+        //UsuarioModel user = null;
         if(!users.isEmpty()){
             for(UsuarioModel user : users){
                 if(user.getPassword().equals(password)) {
-                    if(user.getIsAdmin() > 0){
-                        return 2;
-                    }
-                    return 1;
+                    return user;
                 }
             }
         }
-        return 0;
+        return null;
     }
     
     public UsuarioModel getAllUserById(int id) {

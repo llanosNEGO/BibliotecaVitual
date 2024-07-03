@@ -8,6 +8,7 @@ import dao.UserDAO;
 import java.awt.Color;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import model.UsuarioModel;
 import service.UserService;
 
 /**
@@ -155,7 +156,7 @@ public class Login extends javax.swing.JFrame {
                 jLabel3MouseClicked(evt);
             }
         });
-        bg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 400, 70, -1));
+        bg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 400, 60, -1));
 
         logInButton.setBackground(new java.awt.Color(74, 92, 106));
         logInButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -201,17 +202,19 @@ public class Login extends javax.swing.JFrame {
     private void logInButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logInButtonMouseClicked
         String password = String.valueOf(passwordTextField.getPassword());
         String username = usernameTextField.getText();
-        int userStatus = userService.checkUserandPassword(username , password);
-        
-        if( userStatus == 1){
-           UserView userView = new UserView();
-           userView.setVisible(true);
-           this.dispose();
-        }else if(userStatus == 2){
-            AdminView adminView = new AdminView();
-            adminView.setVisible(true);
-            this.dispose();
+        UsuarioModel user = userService.checkUserandPassword(username , password);
+        if(user != null){
+            if( user.getIsAdmin() == 0){
+                UserView userView = new UserView(user);
+                userView.setVisible(true);
+                this.dispose();
+            }else if(user.getIsAdmin() == 1){
+                AdminView adminView = new AdminView();
+                adminView.setVisible(true);
+                this.dispose();
+            }
         }
+        
         
         
     }//GEN-LAST:event_logInButtonMouseClicked
@@ -242,6 +245,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         RegisterView registerView = new RegisterView();
         registerView.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
     /**
