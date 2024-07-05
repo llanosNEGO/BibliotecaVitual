@@ -56,7 +56,17 @@ public class EditorialDAO implements ICrudService<EditorialModel> {
 
     @Override
     public void insertInto(EditorialModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "INSERT INTO editorial(nombre) VALUES (?);";
+        PreparedStatement statement = null;
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setString(1, entity.getNombre());
+            statement.executeUpdate();
+            System.out.println("Editorial insertedo existosamente!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } 
     }
 
     @Override
@@ -98,12 +108,41 @@ public class EditorialDAO implements ICrudService<EditorialModel> {
 
     @Override
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = " DELETE FROM editorial WHERE id = ?;";
+        PreparedStatement statement = null;
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setInt(1, id);
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("editorial eliminado exitosamente!");
+            } else {
+                System.out.println("No se encontró una editorial con el ID proporcionado.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } 
     }
 
     @Override
-    public void update(int id, EditorialModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void update(EditorialModel entity) {
+        String sql = " UPDATE editorial SET nombre = ? WHERE id = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setString(1, entity.getNombre());
+            statement.setInt(2, entity.getId());
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Editorial actualizado exitosamente!");
+            } else {
+                System.out.println("No se encontró un editorial con el ID proporcionado.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } 
     }
 
     @Override

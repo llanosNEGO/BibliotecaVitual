@@ -7,11 +7,11 @@ public class EditorialModel {
     public EditorialModel() {
     }
 
-    public EditorialModel(int idEditorial, String nombre) {
-        this.id = idEditorial;
+    public EditorialModel(int id, String nombre) {
+        this.id = id;
         this.nombre = nombre;
     }
-
+    
     public EditorialModel(String nombre) {
         this.nombre = nombre;
     }

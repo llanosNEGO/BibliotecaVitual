@@ -53,7 +53,46 @@ public class UserDAO implements ICrudService<UsuarioModel> {
 
     @Override
     public UsuarioModel selectById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "SELECT * FROM user WHERE id = ?;";
+        UsuarioModel user = new UsuarioModel();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+       
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+        
+            if (resultSet.next()) { 
+                
+                user.setId(resultSet.getInt("id"));
+                user.setNombres(resultSet.getString("nombres"));
+                user.setApellidos(resultSet.getString("apellidos"));
+                user.setDireccion(resultSet.getString("direccion"));
+                user.setDni(resultSet.getString("dni"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setUsername(resultSet.getString("username"));
+                user.setIsAdmin(resultSet.getInt("is_admin"));
+                user.setUrlProfilePhoto(resultSet.getString("url_image"));
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (resultSet != null) {
+                resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    
+        return user;
     }
 
     @Override
@@ -62,7 +101,7 @@ public class UserDAO implements ICrudService<UsuarioModel> {
     }
 
     @Override
-    public void update(int id, UsuarioModel entity) {
+    public void update(UsuarioModel entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

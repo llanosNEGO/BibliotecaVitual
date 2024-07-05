@@ -13,6 +13,8 @@ public class LibroModel {
     private Year anioPublicacion;
     private AutorModel autor;
     private EditorialModel editorial;
+    private int totalEjemplares;
+    private int sinPrestar;
 
     public LibroModel(String titulo, String Sinopsis, String urlImage, String isbn, Year añoPublicacion, AutorModel autor, EditorialModel editorial) {
         this.titulo = titulo;
@@ -89,6 +91,22 @@ public class LibroModel {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getTotalEjemplares() {
+        return totalEjemplares;
+    }
+
+    public void setTotalEjemplares(int totalEjemplares) {
+        this.totalEjemplares = totalEjemplares;
+    }
+
+    public int getSinPrestar() {
+        return sinPrestar;
+    }
+
+    public void setSinPrestar(int sinPrestar) {
+        this.sinPrestar = sinPrestar;
     }
 
         

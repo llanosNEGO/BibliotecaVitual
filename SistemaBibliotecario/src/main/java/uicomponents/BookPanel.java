@@ -15,7 +15,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import view.BookInfoPanelView;
+import view.BookInfoUserPanelView;
 import view.UserView;
 
 public class BookPanel extends JPanel {

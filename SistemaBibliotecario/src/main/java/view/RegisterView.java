@@ -38,6 +38,7 @@ public class RegisterView extends javax.swing.JFrame {
     private JFileChooser fileChooser;
     private Path photoProfilesourcePath;
     private String photoProfileFileExtentions;
+    private File selectedFile;
     
    private int xMouse, yMouse;
     public RegisterView() {
@@ -46,6 +47,7 @@ public class RegisterView extends javax.swing.JFrame {
         profilePhotocircularLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         projectDir = Paths.get(System.getProperty("user.dir"));
         userService = new UserService(new UserDAO());
+        selectedFile = null;
     }
 
    
@@ -445,7 +447,7 @@ public class RegisterView extends javax.swing.JFrame {
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION)
         {
-            File selectedFile = fileChooser.getSelectedFile();
+            selectedFile = fileChooser.getSelectedFile();
             photoProfilesourcePath = Paths.get(selectedFile.getAbsolutePath());
             photoProfileFileExtentions = photoProfilesourcePath.toString().substring(photoProfilesourcePath.toString().lastIndexOf(".") + 1);
             try {
@@ -488,11 +490,12 @@ public class RegisterView extends javax.swing.JFrame {
         String dni = dniTextField.getText().trim();
         String email = emailTextField.getText().trim();
         String address = direccionTextField.getText().trim();
-        String urlProfilePhoto = "/UserprofilePhotos/"+username.toLowerCase()+"."+photoProfileFileExtentions; 
+        String urlProfilePhoto = selectedFile != null? "/UserprofilePhotos/"+username.toLowerCase()+"."+photoProfileFileExtentions : "/UserprofilePhotos/defaultPhoto.jpg"; 
         userService.insertUser(new UsuarioModel(username, password, 0 ,urlProfilePhoto,names, lastnames, dni, address, email));
+        if(selectedFile == null) {this.dispose(); return;}
         
-        Path imagetargetDirectory = Paths.get(projectDir + "/src/main/resources/"+urlProfilePhoto);
         try {
+            Path imagetargetDirectory = Paths.get(projectDir + "/src/main/resources/"+urlProfilePhoto);
             Files.copy(photoProfilesourcePath, imagetargetDirectory, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ex) {
             Logger.getLogger(BooksAddAdminPanelView.class.getName()).log(Level.SEVERE, null, ex);

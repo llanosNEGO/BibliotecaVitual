@@ -27,7 +27,7 @@ public class AutorService {
 
     
     public void insertInto(AutorModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        authorDAO.insertInto(entity);
     }
 
     
@@ -38,12 +38,12 @@ public class AutorService {
 
     
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        authorDAO.delete(id);
     }
 
     
-    public void update(int id, AutorModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void update(AutorModel entity) {
+        authorDAO.update(entity);
     }
 
     

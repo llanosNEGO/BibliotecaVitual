@@ -31,7 +31,7 @@ public class EditorialService{
 
     
     public void insertInto(EditorialModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        editorialDAO.insertInto(entity);
     }
 
     
@@ -41,12 +41,12 @@ public class EditorialService{
 
     
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        editorialDAO.delete(id);
     }
 
     
-    public void update(int id, EditorialModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void update(EditorialModel entity) {
+        editorialDAO.update(entity);
     }
 
     

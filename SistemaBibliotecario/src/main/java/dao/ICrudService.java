@@ -17,6 +17,6 @@ public interface ICrudService<T> {
     void insertInto(T entity);
     T selectById(int id);
     void delete(int id);
-    void update(int id, T entity);
+    void update(T entity);
     List<T> search(String keyword);
 }

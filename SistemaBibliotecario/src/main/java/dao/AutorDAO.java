@@ -55,7 +55,17 @@ public class AutorDAO implements ICrudService<AutorModel> {
 
     @Override
     public void insertInto(AutorModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "INSERT INTO autor(nombre) VALUES (?);";
+        PreparedStatement statement = null;
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setString(1, entity.getNombre());
+            statement.executeUpdate();
+            System.out.println("Autor insertedo existosamente!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } 
     }
 
     @Override
@@ -97,12 +107,41 @@ public class AutorDAO implements ICrudService<AutorModel> {
 
     @Override
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = " DELETE FROM autor WHERE id = ?;";
+        PreparedStatement statement = null;
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setInt(1, id);
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("autor eliminado exitosamente!");
+            } else {
+                System.out.println("No se encontró un autor con el ID proporcionado.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } 
     }
 
     @Override
-    public void update(int id, AutorModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void update(AutorModel entity) {
+        String sql = " UPDATE autor SET nombre = ? WHERE id = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setString(1, entity.getNombre());
+            statement.setInt(2, entity.getId());
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("autor actualizado exitosamente!");
+            } else {
+                System.out.println("No se encontró un autor con el ID proporcionado.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } 
     }
 
     @Override

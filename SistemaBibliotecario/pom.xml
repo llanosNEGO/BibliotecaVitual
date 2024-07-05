@@ -23,6 +23,22 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.30</version>
         </dependency>
+        <dependency>
+            <groupId>unknown.binary</groupId>
+            <artifactId>datechooser-swing-1.4.2</artifactId>
+            <version>SNAPSHOT</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-extras</artifactId>
+            <version>3.4.1</version>
+        </dependency>
     </dependencies>
     
     <properties>

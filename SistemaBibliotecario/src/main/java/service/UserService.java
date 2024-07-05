@@ -42,10 +42,11 @@ public class UserService{
         return null;
     }
     
-    public UsuarioModel getAllUserById(int id) {
+    public UsuarioModel getUserById(int id) {
         return userDAO.selectById(id);
     }
 
+    
     
     public void delete(int id) {
         

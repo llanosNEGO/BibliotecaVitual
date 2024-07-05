@@ -60,7 +60,6 @@ public class AdminView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1076, 535));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
@@ -283,12 +282,12 @@ public class AdminView extends javax.swing.JFrame {
                 .addComponent(buttonGive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(buttonReserve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
                 .addComponent(logoutIconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        bg.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 227, 535));
+        bg.add(menuPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 227, 570));
 
         barLabel.setBackground(new java.awt.Color(255, 255, 255));
         barLabel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -330,12 +329,12 @@ public class AdminView extends javax.swing.JFrame {
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 535, Short.MAX_VALUE)
+            .addGap(0, 540, Short.MAX_VALUE)
         );
 
-        bg.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 850, -1));
+        bg.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 850, 540));
 
-        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -380,7 +379,7 @@ public class AdminView extends javax.swing.JFrame {
 
     private void buttonEditorialAuthorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonEditorialAuthorMouseClicked
         // TODO add your handling code here:
-        PrestamosPanelView pv1 = new PrestamosPanelView();
+        EditorialAutorPanelView pv1 = new EditorialAutorPanelView();
         pv1.setSize(836,535);
         pv1.setLocation(0, 0);
         content.removeAll();

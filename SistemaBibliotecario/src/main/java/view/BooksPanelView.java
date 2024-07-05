@@ -20,6 +20,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import model.UsuarioModel;
 import service.*;
 /**
  *
@@ -31,12 +32,33 @@ public class BooksPanelView extends javax.swing.JPanel {
     private List<LibroModel> libros;
     private JPanel bookGalleryPanel;
     private JScrollPane jScrollPane;
+    private boolean isAdmin;
+    private UsuarioModel user;
     
     public BooksPanelView() {
        initComponents();
        this.bookService = new LibroService(new BookDAO());
        setSize(842, 535);
-        displayBooks();
+       displayBooks();
+    }
+    
+    public BooksPanelView(boolean isAdmin, UsuarioModel user) {
+       initComponents();
+       this.bookService = new LibroService(new BookDAO());
+       this.isAdmin = isAdmin;
+       this.user = user;
+       setSize(842, 535);
+       displayBooks();
+        System.out.println(user.getNombres());
+       
+    }
+    
+    public BooksPanelView(boolean isAdmin) {
+       initComponents();
+       this.bookService = new LibroService(new BookDAO());
+       setSize(842, 535);
+       displayBooks();
+       this.isAdmin = isAdmin;
     }
 
    
@@ -79,23 +101,37 @@ public class BooksPanelView extends javax.swing.JPanel {
             bookView.setAuthor(element.getAutor().getNombre());
             bookView.setBookImage(element.getUrlImage());
             bookGalleryPanel.add(bookView); 
-            System.out.println(element.getTitulo());
+            //System.out.println(element.getTitulo());
             
-            // clickEvent to change to BookInfoPanelView
+            // clickEvent to change to BookInfoUserPanelView
             bookView.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            BookInfoPanelView bookInfo = new BookInfoPanelView(element);
-            bookInfo.setSize(842,535);
-            bookInfo.setLocation(0, 0);
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if(isAdmin){
+                        BookInfoAdminPanelView bookAdminInfo = new BookInfoAdminPanelView(element);
+                        bookAdminInfo.setSize(842,535);
+                        bookAdminInfo.setLocation(0, 0);
             
-            removeAll();
-            add(bookInfo, BorderLayout.CENTER);
-            repaint();
-            revalidate();
-                System.out.println("Hola");
-            }
-        });
+                        removeAll();
+                        add(bookAdminInfo, BorderLayout.CENTER);
+                        repaint();
+                        revalidate();
+                        System.out.println("Hola admin");
+                    }else{
+                        BookInfoUserPanelView bookInfo = new BookInfoUserPanelView(element, user);
+                        bookInfo.setSize(842,535);
+                        bookInfo.setLocation(0, 0);
+            
+                        removeAll();
+                        add(bookInfo, BorderLayout.CENTER);
+                        repaint();
+                        revalidate();
+                        System.out.println("Hola");
+                    }
+                    
+                    
+                }
+            });
         }
         jScrollPane = new JScrollPane(bookGalleryPanel);
         jScrollPane.setSize(842,535);

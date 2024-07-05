@@ -35,7 +35,7 @@ public class BookDAO implements ICrudService<LibroModel> {
     
     @Override
     public void insertInto(LibroModel bookEntity) {
-        String sql = "INSERT INTO libro(titulo, sinopsis, url_image, isbn, anio_publicacion, cantidad, id_author, id_editorial) VALUES (?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO libro(titulo, sinopsis, url_image, isbn, anio_publicacion, total_ejemplares, disponibles, id_author, id_editorial) VALUES (?,?,?,?,?,?,?,?,?);";
         PreparedStatement statement = null;
         try {
             statement = conexion.getConnection().prepareStatement(sql);
@@ -44,9 +44,10 @@ public class BookDAO implements ICrudService<LibroModel> {
             statement.setString(3, bookEntity.getUrlImage());
             statement.setString(4, bookEntity.getIsbn());
             statement.setString(5, bookEntity.getAnioPublicacion().toString());
-            statement.setInt(6, bookEntity.getAutor().getId());
-            statement.setInt(7, bookEntity.getAutor().getId());
-            statement.setInt(8, bookEntity.getEditorial().getId());
+            statement.setInt(6, bookEntity.getTotalEjemplares());
+            statement.setInt(7, bookEntity.getTotalEjemplares());
+            statement.setInt(8, bookEntity.getAutor().getId());
+            statement.setInt(9, bookEntity.getEditorial().getId());
 
             // Execute the statement
             statement.executeUpdate();
@@ -69,6 +70,8 @@ public class BookDAO implements ICrudService<LibroModel> {
             statement = conexion.getConnection().prepareStatement(sql);
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
+            
+            if(resultSet.next()){
             String anioPublicacionStr = resultSet.getString("anio_publicacion");
             
             
@@ -81,7 +84,7 @@ public class BookDAO implements ICrudService<LibroModel> {
             libro.setAnioPublicacion(anioPublicacionDate);
             libro.setAutor( autorService.selectById(resultSet.getInt("id_author")));
             libro.setEditorial(editorialService.getEditorialById(resultSet.getInt("id_editorial")));
-                
+            }    
            
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,7 +113,7 @@ public class BookDAO implements ICrudService<LibroModel> {
     }
 
     @Override
-    public void update(int id, LibroModel entity) {
+    public void update(LibroModel entity) {
         String sql = "UPDATE libro SET WHERE id = ?";
     }
 
