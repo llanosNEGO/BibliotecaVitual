@@ -109,7 +109,7 @@ public class BookDAO implements ICrudService<LibroModel> {
 
     @Override
     public void delete(int id) {
-        String sql = "DELETE * FROM libro WHERE id = ?;";
+        String sql = "DELETE FROM libro WHERE id = ?;";
         PreparedStatement statement = null;
         try {
             statement = conexion.getConnection().prepareStatement(sql);
@@ -124,7 +124,7 @@ public class BookDAO implements ICrudService<LibroModel> {
 
     @Override
     public void update(LibroModel entity) {
-        String sql = "UPDATE libro SET titulo = ?, sipnosis = ?, url_image = ?, isbn = ?, anio_publicacion = ?, total_ejemplares = ?, "
+        String sql = "UPDATE libro SET titulo = ?, sinopsis = ?, url_image = ?, isbn = ?, anio_publicacion = ?, total_ejemplares = ?, "
                 + "donador = ?, id_author = ?, id_editorial = ? WHERE id = ?";
         PreparedStatement statement = null;
         try {

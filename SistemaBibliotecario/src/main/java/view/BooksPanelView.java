@@ -88,10 +88,8 @@ public class BooksPanelView extends javax.swing.JPanel {
         bookGalleryPanel.setLocation(0,0);
         bookGalleryPanel.setBackground(new Color(255,255,255));
         for (LibroModel element : libros) {
-            System.out.println(element.getTitulo());
-            System.out.println(element.getUrlImage());
-            BookPanel bookView = new BookPanel();
             
+            BookPanel bookView = new BookPanel();
             bookView.setBookName(element.getTitulo());
             bookView.setAuthor(element.getAutor().getNombre());
             bookView.setBookImage(element.getUrlImage());

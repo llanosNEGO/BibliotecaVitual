@@ -35,7 +35,19 @@ public class CommentDAO implements ICrudService<ComentarioModel> {
 
     @Override
     public void insertInto(ComentarioModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "INSERT INTO comentarios(contenido, id_user, id_book) VALUES (?, ?, ?);";
+        PreparedStatement statement = null;
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setString(1, entity.getContenido());
+            statement.setInt(2, entity.getUsuario().getId());
+            statement.setInt(3, entity.getLibro().getId());
+            statement.executeUpdate();
+            System.out.println("Commentario insertado existosamente!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } 
     }
 
     @Override
@@ -61,7 +73,7 @@ public class CommentDAO implements ICrudService<ComentarioModel> {
      public List<ComentarioModel> selectByIdOfBook(int id) {
         List<ComentarioModel> comments = new ArrayList<>();
         
-        String sql = "SELECT * FROM comentarios WHERE id_book = ?";
+        String sql = "SELECT * FROM comentarios WHERE id_book = ? ORDER BY id DESC";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {

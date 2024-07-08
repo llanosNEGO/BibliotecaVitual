@@ -17,18 +17,25 @@ public class PrestamoModel {
     private int cantidad;
     private UsuarioModel usuario;
     private LibroModel libro;
+    private int estado; // 0: en proceso; 1: procesado y entregado
     private Date fechaPrestamo;
     private Date fechaDevolucion;
 
     public PrestamoModel(int cantidad, UsuarioModel usuario, LibroModel libro, Date fechaPrestamo, Date fechaDevolucion) {
-        this.id = id;
+        this(cantidad,  usuario,  libro, 0, fechaPrestamo, fechaDevolucion);
+    }
+
+    public PrestamoModel(int cantidad, UsuarioModel usuario, LibroModel libro, int estado, Date fechaPrestamo, Date fechaDevolucion) {
+        
         this.cantidad = cantidad;
         this.usuario = usuario;
         this.libro = libro;
+        this.estado = estado;
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
     }
 
+    
     public PrestamoModel() {
     }
 
@@ -78,6 +85,14 @@ public class PrestamoModel {
 
     public void setFechaDevolucion(Date fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
     
     

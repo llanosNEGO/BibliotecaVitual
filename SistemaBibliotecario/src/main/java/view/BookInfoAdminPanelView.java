@@ -4,11 +4,15 @@
  */
 package view;
 
+import dao.AutorDAO;
+import dao.BookDAO;
+import dao.EditorialDAO;
 import java.awt.BorderLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.LibroModel;
+import service.LibroService;
 
 /**
  *
@@ -17,6 +21,7 @@ import model.LibroModel;
 public class BookInfoAdminPanelView extends javax.swing.JPanel {
 
     private LibroModel book;
+    private LibroService bookService;
     public BookInfoAdminPanelView() {
         initComponents();
     }
@@ -24,6 +29,7 @@ public class BookInfoAdminPanelView extends javax.swing.JPanel {
     public BookInfoAdminPanelView(LibroModel book) {
         initComponents();
         this.book = book;
+        bookService = new LibroService(new BookDAO(new AutorDAO(), new EditorialDAO()));
         displayInfo();
     }
 
@@ -237,7 +243,18 @@ public class BookInfoAdminPanelView extends javax.swing.JPanel {
     private void deleteButtonPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonPanelMouseClicked
         // TODO add your handling code here:
         
-        JOptionPane.showMessageDialog(null, "Seguro que quieres eliminar");
+        int response = JOptionPane.showConfirmDialog(null, "Seguro que quieres eliminar?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+        if(response == JOptionPane.YES_OPTION){
+            bookService.delete(book.getId());
+        };
+        
+        BooksPanelView b1 = new BooksPanelView(true);
+        b1.setSize(842,535);
+        b1.setLocation(0, 0);
+        this.removeAll();
+        this.add(b1, BorderLayout.CENTER);
+        this.repaint();
+        this.revalidate();
     }//GEN-LAST:event_deleteButtonPanelMouseClicked
 
 

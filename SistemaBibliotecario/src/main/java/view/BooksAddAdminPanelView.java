@@ -56,6 +56,7 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
     private Path imagetargetDirectory;
     private String imageBookfileExtentions;
     private Path projectDir;
+    private LibroModel book;
     
      public BooksAddAdminPanelView() {
         initializeComponents();
@@ -68,6 +69,9 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
 
     public BooksAddAdminPanelView(LibroModel book) {
         initializeComponents();
+        this.book = book;
+        authorList.setSelectedValue(book.getAutor().getNombre(), true);
+        editorialList.setSelectedValue(book.getEditorial().getNombre(), true);
         setupServices();
         populateBookDetails(book);
         this.setSize(1076, 535);
@@ -99,8 +103,10 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
         yearTextField.setText(book.getAnioPublicacion().toString());
         sinopsisTextPane.setText(book.getSinopsis());
         amountSpinner.setValue(book.getSinPrestar());
-        authorList.setSelectedValue(book.getAutor().getNombre(), true);
-        editorialList.setSelectedValue(book.getEditorial().getNombre(), true);
+        //authorList.setSelectedValue(book.getAutor().getNombre().trim(), true);
+        //editorialList.setSelectedValue(book.getEditorial().getNombre().trim(), true);
+        System.out.println(book.getAutor().getNombre());
+        imageBookfileExtentions = book.getUrlImage().toString().substring(book.getUrlImage().toString().lastIndexOf(".") + 1);
     }
 
     
@@ -493,12 +499,84 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
     }//GEN-LAST:event_addButtonPanelMouseClicked
 
     private void editButtonPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editButtonPanelMouseClicked
-        // TODO add your handling code here:
+        
+        isbn = isbnTextField.getText().trim();
+        imagetargetDirectory = Paths.get(projectDir + "/src/main/resources/booksImages/"+ isbn +"."+ imageBookfileExtentions);
+        System.out.println(imagetargetDirectory);
+        Year year;
+        String titleBook = titleTextField.getText().trim().toUpperCase();    
+        String sinopsis = sinopsisTextPane.getText().trim();
+        String urlImageBook = "/booksImages/"+isbn+"."+imageBookfileExtentions;
+        boolean donado = donadoRadioButton.isSelected();
+        String donador = donadorTextField.getText().trim();
+        int amount = (Integer) amountSpinner.getValue();
+        String selectedAuthor = authorList.getSelectedValue();
+        String selectedEditorial = editorialList.getSelectedValue();
+        
+        if (imagetargetDirectory == null) {
+               JOptionPane.showMessageDialog(null, "Debes seleccionar una imagen", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (isbn.isEmpty()) {
+               JOptionPane.showMessageDialog(null, "ISBN no puede estar vacío", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (selectedAuthor == null) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un autor", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (selectedEditorial == null) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una editorial", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (titleBook.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Title no puede estar vacío", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (sinopsis.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Sinopsis no puede estar vacío", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if(donado){
+            if (donador.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Donator no puede estar vacío", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }         
+        }else{
+            donador = null;
+        }
+        try {
+            year = Year.parse(yearTextField.getText().trim());
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Invalid year format", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        AutorModel author = authors.stream().filter(a -> a.getNombre().equals(selectedAuthor)).findFirst().orElse(null);
+        EditorialModel editorial1 = editorials.stream().filter(editorial -> editorial.getNombre().equals(selectedEditorial)).findFirst().orElse(null);
+        book.setAutor(author);
+        book.setAnioPublicacion(year);
+        book.setTitulo(titleBook);
+        book.setIsbn(isbn);
+        book.setEditorial(editorial1);
+        book.setTotalEjemplares(amount);
+        book.setUrlImage(urlImageBook);
+        book.setSinopsis(sinopsis);
+        book.setDonador(donador);
+        bookService.update(book.getId(), book);
+        
+        if(imageBooksourcePath != null){
+            try {
+                Files.copy(imageBooksourcePath, imagetargetDirectory, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException ex) {
+                Logger.getLogger(BooksAddAdminPanelView.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Error copying image file", "File Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_editButtonPanelMouseClicked
 
     private void seeBooksPanelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seeBooksPanelButtonMouseClicked
         // TODO add your handling code here:
-        setupServices();
         BooksPanelView b1 = new BooksPanelView(true);
         b1.setSize(842,535);
         b1.setLocation(0, 0);

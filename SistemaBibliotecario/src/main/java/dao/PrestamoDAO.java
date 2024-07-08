@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import model.LibroModel;
 import model.PrestamoModel;
 import model.UsuarioModel;
@@ -51,8 +52,7 @@ public class PrestamoDAO implements ICrudService<PrestamoModel> {
         List<PrestamoModel> prestamos = new ArrayList<>();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        //bookService = new LibroService(new BookDAO());
-        //userService = new UserService(new UserDAO()); 
+        
     
         try {
             statement = conexion.getConnection().prepareStatement(sql);
@@ -68,6 +68,7 @@ public class PrestamoDAO implements ICrudService<PrestamoModel> {
                 prestamo.setFechaDevolucion(resultSet.getDate("fecha_devolucion"));
                 prestamo.setLibro(bookDAO.selectById(resultSet.getInt("id_book")));
                 prestamo.setUsuario(userDAO.selectById(resultSet.getInt("id_user")));
+                prestamo.setEstado(resultSet.getInt("estado"));
                 
             }
         } catch (SQLException e) {
@@ -112,12 +113,63 @@ public class PrestamoDAO implements ICrudService<PrestamoModel> {
 
     @Override
     public PrestamoModel selectById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "SELECT * FROM prestamo WHERE id = ?;";
+        PrestamoModel prestamo = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        
+    
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setInt(1,id);
+            resultSet = statement.executeQuery();
+        
+            if (resultSet.next()) { 
+                
+                prestamo = new PrestamoModel();
+                prestamo.setId(resultSet.getInt("id"));
+                prestamo.setCantidad(resultSet.getInt("cantidad"));
+                prestamo.setFechaPrestamo(resultSet.getDate("fecha_prestamo"));
+                prestamo.setFechaDevolucion(resultSet.getDate("fecha_devolucion"));
+                prestamo.setLibro(bookDAO.selectById(resultSet.getInt("id_book")));
+                prestamo.setUsuario(userDAO.selectById(resultSet.getInt("id_user")));
+                prestamo.setEstado(resultSet.getInt("estado"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (resultSet != null) {
+                resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    
+        return prestamo;
     }
 
     @Override
     public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = " DELETE FROM prestamo WHERE id = ?;";
+        PreparedStatement statement = null;
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setInt(1, id);
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("prestamo eliminado exitosamente!");
+            } else {
+                System.out.println("No se encontró un prestamo con el ID proporcionado.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } 
     }
 
     @Override
@@ -152,6 +204,7 @@ public class PrestamoDAO implements ICrudService<PrestamoModel> {
                 prestamo.setFechaDevolucion(resultSet.getDate("fecha_devolucion"));
                 prestamo.setLibro(bookDAO.selectById(resultSet.getInt("id_book")));
                 prestamo.setUsuario(userDAO.selectById(resultSet.getInt("id_user")));
+                prestamo.setEstado(resultSet.getInt("estado"));
                 prestamos.add(prestamo);
                 
             }
@@ -214,5 +267,68 @@ public class PrestamoDAO implements ICrudService<PrestamoModel> {
     
         return prestamos;
     }
+     
+     public DefaultTableModel  selectByDNIOfUser(String dni) {
+         
+         DefaultTableModel model = new DefaultTableModel();
+         model.addColumn("Id");
+         model.addColumn("Cantidad");
+         model.addColumn("Estado");
+         model.addColumn("Libro");
+         model.addColumn("Dni");
+         model.addColumn("Username");
+  
+        String sql = "SELECT prestamo.id, prestamo.cantidad, prestamo.estado, libro.titulo, user.dni, user.username FROM prestamo "
+                + "INNER JOIN libro on prestamo.id_book =libro.id INNER JOIN user ON prestamo.id_user = user.id WHERE user.dni = ?;";
+        
+        List<PrestamoModel> prestamos = new ArrayList<>();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+      
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setString(1, dni);
+            resultSet = statement.executeQuery();
+        
+            while (resultSet.next()) { 
+              model.addRow(new Object[]{resultSet.getInt("id"), resultSet.getInt("cantidad"), resultSet.getInt("estado") == 0 ? "en proceso" : "procesado y entregado", resultSet.getString("titulo"), resultSet.getString("dni"),resultSet.getString("username")});  
+               
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (resultSet != null) {
+                resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    
+        return model;
+    }
+     
+     public void updateStateById(int id, int state){
+         String sql = "UPDATE prestamo SET estado = ? WHERE id = ?";
+         PreparedStatement statement = null;
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setInt(1, state);
+            statement.setInt(2, id);
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Prestamo actualizado exitosamente!");
+            } else {
+                System.out.println("No se encontró un Prestamo con el ID proporcionado.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } 
+     }
     
 }

@@ -46,7 +46,7 @@ public class LibroService{
         
     }
 
-    public int calcCantoOfBooks(int id){
+    public int calcCantoOfAvailableBooks(int id){
        prestamosDAO = new PrestamoDAO(new BookDAO(new AutorDAO(), new EditorialDAO()), new UserDAO());
        LibroModel book = bookDAO.selectById(id);
        List<PrestamoModel> prestamos = prestamosDAO.selectByIdOfBook(id);
@@ -60,13 +60,24 @@ public class LibroService{
        return 0;
     }
    
-    public void delete(int id) {
+    public void calcCantoOfAvailableBooksAfterDevolve(PrestamoModel prestamo){
+        LibroModel book = bookDAO.selectById(prestamo.getLibro().getId());
         
+        int numtAvailableBooks = book.getSinPrestar();
+        int numBooksBorrowed = prestamo.getCantidad();
+        numtAvailableBooks = numtAvailableBooks + numBooksBorrowed;
+        
+        
+        bookDAO.updateNumOfBooks(numtAvailableBooks, prestamo.getLibro().getId());
+    }
+    
+    public void delete(int id) {
+        bookDAO.delete(id);
     }
 
     
     public void update(int id, LibroModel entity) {
-        
+        bookDAO.update(entity);
     }
 
     

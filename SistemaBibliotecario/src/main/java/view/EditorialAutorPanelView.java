@@ -9,6 +9,7 @@ import dao.EditorialDAO;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import model.AutorModel;
 import model.EditorialModel;
 import service.AutorService;
@@ -76,7 +77,6 @@ public class EditorialAutorPanelView extends javax.swing.JPanel {
 
         addAuthorTextField.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         addAuthorTextField.setForeground(new java.awt.Color(204, 204, 204));
-        addAuthorTextField.setText("Ingresar nombre del autor");
         addAuthorTextField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addAuthorTextFieldMouseClicked(evt);
@@ -93,7 +93,6 @@ public class EditorialAutorPanelView extends javax.swing.JPanel {
 
         addEditorialTextField.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         addEditorialTextField.setForeground(new java.awt.Color(204, 204, 204));
-        addEditorialTextField.setText("Ingresar nombre de la editorial");
         addEditorialTextField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addEditorialTextFieldMouseClicked(evt);
@@ -391,8 +390,16 @@ public class EditorialAutorPanelView extends javax.swing.JPanel {
     
     
     private void deleteEditorialButtonPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteEditorialButtonPanelMouseClicked
+        if (EditorialList.getSelectedValue() == null || EditorialList.getSelectedValue().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un elemento para actualizar", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         EditorialModel editorial1 = editorials.stream().filter(editorial -> editorial.getNombre().equals(EditorialList.getSelectedValue())).findFirst().orElse(null);
-        editorialService.delete(editorial1.getId());
+        int response = JOptionPane.showConfirmDialog(null, "Seguro que quieres eliminar?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+        if(response == JOptionPane.YES_OPTION){
+             editorialService.delete(editorial1.getId());
+        };
+       
         populateJlists();
         
     }//GEN-LAST:event_deleteEditorialButtonPanelMouseClicked
@@ -401,6 +408,10 @@ public class EditorialAutorPanelView extends javax.swing.JPanel {
         // TODO add your handling code here:
         
         String editorial = addEditorialTextField.getText();
+        if (editorial == null || editorial.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo editorial no puede estar vacío.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         editorialService.insertInto(new EditorialModel(editorial));
         populateJlists();
         
@@ -409,12 +420,19 @@ public class EditorialAutorPanelView extends javax.swing.JPanel {
     private void addAuthorButtonPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addAuthorButtonPanel1MouseClicked
         // TODO add your handling code here:
         String author = addAuthorTextField.getText();
+        if (author == null || author.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo autor no puede estar vacío.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         authorService.insertInto(new AutorModel(author));
         populateJlists();
     }//GEN-LAST:event_addAuthorButtonPanel1MouseClicked
 
     private void editAuthorButtonPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editAuthorButtonPanelMouseClicked
-        
+        if (authorsList.getSelectedValue() == null || authorsList.getSelectedValue().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un elemento para actualizar", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         AutorModel author = authors.stream().filter(a -> a.getNombre().equals(authorsList.getSelectedValue())).findFirst().orElse(null);
         author.setNombre(editAuthorTextField.getText());
         authorService.update(author);
@@ -422,7 +440,10 @@ public class EditorialAutorPanelView extends javax.swing.JPanel {
     }//GEN-LAST:event_editAuthorButtonPanelMouseClicked
 
     private void editEditorialButtonPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editEditorialButtonPanelMouseClicked
-        
+         if (EditorialList.getSelectedValue() == null || EditorialList.getSelectedValue().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un elemento para actualizar", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         EditorialModel editorial1 = editorials.stream().filter(editorial -> editorial.getNombre().equals(EditorialList.getSelectedValue())).findFirst().orElse(null);
         editorial1.setNombre(editEditorialTextField.getText());
         editorialService.update(editorial1);
@@ -430,7 +451,15 @@ public class EditorialAutorPanelView extends javax.swing.JPanel {
     }//GEN-LAST:event_editEditorialButtonPanelMouseClicked
 
     private void deleteAuthorButtonPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteAuthorButtonPanelMouseClicked
+        if (authorsList.getSelectedValue() == null || authorsList.getSelectedValue().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debes seleccionar un elemento para actualizar", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         AutorModel author = authors.stream().filter(a -> a.getNombre().equals(authorsList.getSelectedValue())).findFirst().orElse(null);
+        int response = JOptionPane.showConfirmDialog(null, "Seguro que quieres eliminar?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+        if(response == JOptionPane.YES_OPTION){
+             authorService.delete(author.getId());
+        };
         authorService.delete(author.getId());
         populateJlists();
     }//GEN-LAST:event_deleteAuthorButtonPanelMouseClicked

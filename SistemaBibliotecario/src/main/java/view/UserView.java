@@ -198,7 +198,7 @@ public class UserView extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/reserva.png"))); // NOI18N
-        jLabel4.setText("RESERVAS");
+        jLabel4.setText("V1.2");
 
         javax.swing.GroupLayout buttonReserveLayout = new javax.swing.GroupLayout(buttonReserve);
         buttonReserve.setLayout(buttonReserveLayout);

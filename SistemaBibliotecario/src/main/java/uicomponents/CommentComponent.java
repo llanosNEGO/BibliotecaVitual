@@ -44,19 +44,6 @@ public class CommentComponent extends JPanel {
         textArea.setOpaque(false);
         textArea.setEditable(false);
         commentPanel.add(textArea);
-
-        /*String commentText = "Could you provide an image of what you want using paint or something and put it somewhere to show us what you want? Is the circle label supposed to show a string in a circular way, or should it show a circular Icon? - <b>Pedro</b>";
-        commentTextPane = new JEditorPane("text/html", commentText);
-        commentTextPane.setFont(new Font("Serif", Font.PLAIN, 11));
-        commentTextPane.setOpaque(false);
-        commentTextPane.setEditable(false);
-
-        // Add scroll pane for text area to handle large text
-        JScrollPane scrollPane = new JScrollPane(commentTextPane);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setBorder(null);
-        add(scrollPane, BorderLayout.CENTER);*/
   
         separator = new JSeparator(SwingConstants.HORIZONTAL);
         separator.setMinimumSize(new Dimension(Integer.MAX_VALUE, separator.getPreferredSize().height));

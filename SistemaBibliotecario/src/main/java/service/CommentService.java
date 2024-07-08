@@ -22,4 +22,8 @@ public class CommentService {
     public List<ComentarioModel> getCommentByIdOfBook(int id){
       return commentDAO.selectByIdOfBook(id);
     }
+    
+    public void addComment(ComentarioModel entity){
+      commentDAO.insertInto(entity);
+    }
 }

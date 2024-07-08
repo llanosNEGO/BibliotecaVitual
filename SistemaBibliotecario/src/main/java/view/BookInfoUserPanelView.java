@@ -92,27 +92,34 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
     
     
     public void displayComments(){
-        comments = commentService.getCommentByIdOfBook(book.getId());
+        List<ComentarioModel> comments = commentService.getCommentByIdOfBook(book.getId());
         JPanel commentsList = new JPanel();
-        GridLayout layout = new GridLayout(0, 1, 20, 20);         
+        GridLayout layout = new GridLayout(0, 1, 10, 10);         
         commentsList.setLayout(layout);
-        commentsList.setSize(420, 96);
+        commentsList.setSize(420, 130);
         commentsList.setLocation(0,0);
-        commentsList.setBackground(new Color(255,255,255));
+        commentsList.setBackground(new Color(204,204,204));
         
         for(ComentarioModel comment : comments){
-            CommentComponent commentView = new CommentComponent(comment.getUsuario().getUsername(), comment.getContenido());
-            commentsList.add(commentView);
+            if(user.getUsername().equals(comment.getUsuario().getUsername())){
+                CommentComponent commentView = new CommentComponent("me", comment.getContenido());
+                commentsList.add(commentView);
+            }else{
+                CommentComponent commentView = new CommentComponent(comment.getUsuario().getUsername(), comment.getContenido());
+                commentsList.add(commentView);
+            }
+            
+           
         }
         jScrollPane = new JScrollPane(commentsList);
-        jScrollPane.setSize(420, 150);
+        jScrollPane.setSize(420, 130);
         jScrollPane.setLocation(0,0);
         jScrollPane.setBorder(BorderFactory.createEmptyBorder());
         commentsPanel.add(jScrollPane, BorderLayout.CENTER);
         repaint();
         revalidate();
         
-       
+        System.out.println("rola");
     }
     
     /**
@@ -125,7 +132,7 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
     private void initComponents() {
 
         dateBetween1 = new com.raven.datechooser.DateBetween();
-        jTextField1 = new javax.swing.JTextField();
+        commentTextField = new javax.swing.JTextField();
         commentsPanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -151,7 +158,7 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
         jSeparator4 = new javax.swing.JSeparator();
         cantidadSpinner = new javax.swing.JSpinner();
         jTextField2 = new javax.swing.JTextField();
-        comentButtonPanel = new javax.swing.JPanel();
+        commentButtonPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         prestamoButtonPanel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -162,16 +169,21 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(842, 535));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField1.setText("Comentario");
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        commentTextField.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        commentTextField.setForeground(new java.awt.Color(204, 204, 204));
+        commentTextField.setText("Comentario");
+        commentTextField.setBorder(null);
+        commentTextField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                commentTextFieldMouseClicked(evt);
             }
         });
-        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 360, 319, -1));
+        commentTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                commentTextFieldActionPerformed(evt);
+            }
+        });
+        add(commentTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 360, 319, -1));
 
         commentsPanel.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -246,7 +258,6 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
 
         jScrollPane2.setBorder(null);
 
-        sinopsisPane.setBackground(new java.awt.Color(255, 255, 255));
         sinopsisPane.setBorder(null);
         sinopsisPane.setFont(new java.awt.Font("Playwrite NG Modern", 0, 12)); // NOI18N
         sinopsisPane.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -274,35 +285,40 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
         });
         add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 61, 200, 30));
 
-        comentButtonPanel.setBackground(new java.awt.Color(74, 92, 106));
-        comentButtonPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        commentButtonPanel.setBackground(new java.awt.Color(74, 92, 106));
+        commentButtonPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        commentButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                commentButtonPanelMouseClicked(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("comentar");
 
-        javax.swing.GroupLayout comentButtonPanelLayout = new javax.swing.GroupLayout(comentButtonPanel);
-        comentButtonPanel.setLayout(comentButtonPanelLayout);
-        comentButtonPanelLayout.setHorizontalGroup(
-            comentButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout commentButtonPanelLayout = new javax.swing.GroupLayout(commentButtonPanel);
+        commentButtonPanel.setLayout(commentButtonPanelLayout);
+        commentButtonPanelLayout.setHorizontalGroup(
+            commentButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 90, Short.MAX_VALUE)
-            .addGroup(comentButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(comentButtonPanelLayout.createSequentialGroup()
+            .addGroup(commentButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(commentButtonPanelLayout.createSequentialGroup()
                     .addGap(0, 14, Short.MAX_VALUE)
                     .addComponent(jLabel5)
                     .addGap(0, 15, Short.MAX_VALUE)))
         );
-        comentButtonPanelLayout.setVerticalGroup(
-            comentButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        commentButtonPanelLayout.setVerticalGroup(
+            commentButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 30, Short.MAX_VALUE)
-            .addGroup(comentButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(comentButtonPanelLayout.createSequentialGroup()
+            .addGroup(commentButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(commentButtonPanelLayout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jLabel5)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        add(comentButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 350, 90, 30));
+        add(commentButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 350, 90, 30));
 
         prestamoButtonPanel.setBackground(new java.awt.Color(74, 92, 106));
         prestamoButtonPanel.setForeground(new java.awt.Color(255, 255, 255));
@@ -341,9 +357,9 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
         add(prestamoButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 60, -1, 30));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void commentTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commentTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_commentTextFieldActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
@@ -359,10 +375,29 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
         System.out.println(formatter.format(loanFrom));
         System.out.println(formatter.format(loanTo));
         PrestamoModel prestamo = new PrestamoModel(cantidad, user, book,loanFrom, loanTo);
+        
+        if(cantidad > book.getSinPrestar()){
+            JOptionPane.showMessageDialog(null, "No puedes prestar mas de la cantidad disponible");
+            return;
+        }
         prestamoService.insertPrestamos(prestamo);
-        bookService.calcCantoOfBooks(book.getId());
+        bookService.calcCantoOfAvailableBooks(book.getId());
         
     }//GEN-LAST:event_prestamoButtonPanelMouseClicked
+
+    private void commentButtonPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_commentButtonPanelMouseClicked
+        // TODO add your handling code here:
+        String contentComment = commentTextField.getText();
+        ComentarioModel comment = new ComentarioModel(user, book, contentComment);
+        commentService.addComment(comment);
+        displayComments();
+    }//GEN-LAST:event_commentButtonPanelMouseClicked
+
+    private void commentTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_commentTextFieldMouseClicked
+        // TODO add your handling code here:
+        commentTextField.setText("");
+        commentTextField.setForeground(Color.BLACK);
+    }//GEN-LAST:event_commentTextFieldMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -371,7 +406,8 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
     private javax.swing.JLabel availableBookLabel;
     private javax.swing.JLabel bookImage;
     private javax.swing.JSpinner cantidadSpinner;
-    private javax.swing.JPanel comentButtonPanel;
+    private javax.swing.JPanel commentButtonPanel;
+    private javax.swing.JTextField commentTextField;
     private javax.swing.JPanel commentsPanel;
     private com.raven.datechooser.DateBetween dateBetween1;
     private javax.swing.JLabel editorialLabel;
@@ -392,7 +428,6 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel prestamoButtonPanel;
     private javax.swing.JTextPane sinopsisPane;

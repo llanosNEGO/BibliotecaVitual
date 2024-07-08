@@ -6,6 +6,7 @@ package service;
 
 import dao.PrestamoDAO;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import model.PrestamoModel;
 
 /**
@@ -31,4 +32,19 @@ public class PrestamoService {
         return prestamoDAO.selectByIdOfUser(id);
     }
     
+    public void removePrestamo(int id){
+     prestamoDAO.delete(id);
+    }
+    
+    public PrestamoModel getPrestamoById(int id){
+     return prestamoDAO.selectById(id);
+    }
+    
+    public DefaultTableModel getPrestamoByDNIOfUser(String dni){
+        return prestamoDAO.selectByDNIOfUser(dni);
+    }
+    
+    public void updateStateOfPrestamo(int id, int state){
+        prestamoDAO.updateStateById(id, state);
+    }
 }

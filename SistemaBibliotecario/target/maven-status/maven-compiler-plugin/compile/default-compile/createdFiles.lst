@@ -1,8 +1,10 @@
 view\UserView$10.class
 view\BookInfoUserPanelView$1.class
+view\BookInfoUserPanelView$4.class
 view\Login$2.class
 view\EditorialAutorPanelView$7.class
 service\DonationService.class
+view\PrestamosAdminPanelView$2.class
 view\AdminView$1.class
 view\UserView$8.class
 uicomponents\BookListComponent.class
@@ -79,8 +81,11 @@ view\BookInfoAdminPanelView.class
 view\AdminView$2.class
 view\Login$1.class
 dao\EditorialDAO.class
+view\BookInfoUserPanelView$5.class
 view\UserView$1.class
 uicomponents\CommentComponent.class
+view\PrestamosAdminPanelView$1.class
+view\PrestamosAdminPanelView$4.class
 service\PrestamoService.class
 view\BookInfoUserPanelView$2.class
 view\EditorialAutorPanelView$11.class
@@ -93,12 +98,14 @@ service\UserService.class
 view\AdminView$3.class
 view\RegisterView$16.class
 view\UserView$6.class
+view\PrestamosAdminPanelView$3.class
 view\RegisterView$4.class
 view\BooksAddAdminPanelView$1.class
 view\Login$4.class
 view\EditorialAutorPanelView$5.class
 connection\MySqlConnection.class
 dao\BookDAO.class
+uicomponents\BookListComponent$1.class
 view\Login$3.class
 view\EditorialAutorPanelView$6.class
 view\AdminView$4.class

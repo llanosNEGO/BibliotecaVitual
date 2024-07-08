@@ -58,38 +58,10 @@ public class PrestamosPanelView extends javax.swing.JPanel {
         return new PrestamoService(prestamoDAO);
     }
 
-    private void displayPrestamos(){
-        prestamos = prestamoService.getPrestamosByUserId(user.getId());
-        
-        prestamosListPanel = new JPanel();
-        GridLayout layout = new GridLayout(5, 1, 20, 20); 
-        
-        prestamosListPanel.setLayout(new BoxLayout(prestamosListPanel, BoxLayout.Y_AXIS));
-        //prestamosListPanel.setSize(842, 535);
-        prestamosListPanel.setLocation(0,0);
-        prestamosListPanel.setBackground(new Color(255,255,255));
-        
-        
-        for(PrestamoModel prestamo : prestamos){
-            BookListComponent bookComponent = new BookListComponent();
-            bookComponent.setBookTitleLabel(prestamo.getLibro().getTitulo());
-            bookComponent.setImageLabel(prestamo.getLibro().getUrlImage());
-            bookComponent.setSize(100, 100);
-            prestamosListPanel.add(bookComponent);
-            //prestamosListPanel.add(Box.createRigidArea(new Dimension(0,90)));
-        }
-        
-        jScrollPane = new JScrollPane(prestamosListPanel);
-        jScrollPane.setSize(842,535);
-        jScrollPane.setLocation(0,0);
-        jScrollPane.setBorder(BorderFactory.createEmptyBorder());
-        add(jScrollPane, BorderLayout.CENTER);
-        repaint();
-        revalidate();
-    }
     
-    private void displayPrestamos1() {
-    prestamos = prestamoService.getPrestamosByUserId(user.getId());
+    
+    public void displayPrestamos1() {
+        prestamos = prestamoService.getPrestamosByUserId(user.getId());
         prestamosListPanel = new JPanel();
         prestamosListPanel.setLayout(new GridBagLayout());
         prestamosListPanel.setBackground(Color.WHITE);
@@ -102,18 +74,22 @@ public class PrestamosPanelView extends javax.swing.JPanel {
         gbc.insets = new Insets(10, 10, 10, 10); // spacing between components
          gbc.anchor = GridBagConstraints.NORTHWEST;
         for (PrestamoModel prestamo : prestamos) {
-            BookListComponent bookComponent = new BookListComponent();
+            BookListComponent bookComponent = new BookListComponent(prestamo, this);
             bookComponent.setBookTitleLabel(prestamo.getLibro().getTitulo());
             bookComponent.setImageLabel(prestamo.getLibro().getUrlImage());
-            bookComponent.setPreferredSize(new Dimension(800, 100)); // Preferred size for each component
-
+            bookComponent.setAmountLabel(prestamo.getCantidad()+"");
+            bookComponent.setStateLabel(prestamo.getEstado()==0?"en proceso":"procesado y entregado");
+            bookComponent.setTimeLabel(prestamo.getFechaPrestamo().toString(), prestamo.getFechaDevolucion().toString());
+            bookComponent.setPreferredSize(new Dimension(800, 100)); 
+            System.out.println(prestamo.getEstado());
             prestamosListPanel.add(bookComponent, gbc);
-            gbc.gridy++; // Move to the next row
+            gbc.gridy++; 
         }
 
         JPanel wrapperPanel = new JPanel(new BorderLayout());
+        wrapperPanel.setBackground(Color.WHITE);
         wrapperPanel.add(prestamosListPanel, BorderLayout.NORTH);
-
+        
         jScrollPane = new JScrollPane(wrapperPanel);
         jScrollPane.setPreferredSize(new Dimension(842, 535));
         jScrollPane.setBorder(BorderFactory.createEmptyBorder());

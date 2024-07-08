@@ -8,6 +8,7 @@ import dao.UserDAO;
 import java.awt.Color;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import model.UsuarioModel;
 import service.UserService;
 
@@ -213,6 +214,8 @@ public class Login extends javax.swing.JFrame {
                 adminView.setVisible(true);
                 this.dispose();
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Contraseña o usuario incorrecto", "Validation Error", JOptionPane.ERROR_MESSAGE);
         }
         
         
