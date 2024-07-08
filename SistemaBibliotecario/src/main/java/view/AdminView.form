@@ -60,7 +60,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="buttonGive" alignment="0" max="32767" attributes="0"/>
+                          <Component id="buttonLoan" alignment="0" max="32767" attributes="0"/>
                           <Component id="buttonEditorialAuthor" alignment="0" max="32767" attributes="0"/>
                           <Component id="buttonBook" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
@@ -95,7 +95,7 @@
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="buttonEditorialAuthor" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="buttonGive" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonLoan" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="buttonReserve" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="149" max="32767" attributes="0"/>
@@ -228,7 +228,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="buttonGive">
+            <Container class="javax.swing.JPanel" name="buttonLoan">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="41" green="3c" red="27" type="rgb"/>
@@ -238,9 +238,9 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonGiveMouseClicked"/>
-                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonGiveMouseEntered"/>
-                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonGiveMouseExited"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonLoanMouseClicked"/>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonLoanMouseEntered"/>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonLoanMouseExited"/>
               </Events>
 
               <Layout>
@@ -274,9 +274,9 @@
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/icons/regalo.png"/>
+                      <Image iconType="3" name="/icons/documento.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="DONACIONES"/>
+                    <Property name="text" type="java.lang.String" value="PRESTAMOS"/>
                   </Properties>
                 </Component>
               </SubComponents>

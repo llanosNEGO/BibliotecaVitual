@@ -2,9 +2,11 @@ view\UserView$10.class
 view\BookInfoUserPanelView$1.class
 view\Login$2.class
 view\EditorialAutorPanelView$7.class
+service\DonationService.class
 view\AdminView$1.class
 view\UserView$8.class
 uicomponents\BookListComponent.class
+service\CommentService.class
 model\EditorialModel.class
 view\UserView$3.class
 view\AdminView$9.class
@@ -22,6 +24,7 @@ view\RegisterView.class
 view\Login$5.class
 view\EditorialAutorPanelView$4.class
 view\RegisterView$8.class
+view\BookInfoAdminPanelView$1.class
 view\EditorialAutorPanelView$1.class
 model\AutorModel.class
 view\Login$8.class
@@ -32,6 +35,7 @@ view\UserView$2.class
 view\Login$7.class
 view\ReservasPanelView.class
 dao\ICrudService.class
+dao\DonationDAO.class
 view\RegisterView$1.class
 view\BooksAddAdminPanelView$2.class
 view\AdminView$6.class
@@ -49,20 +53,22 @@ view\UserView.class
 uicomponents\CircularLabel.class
 view\AdminView$7.class
 view\EditorialAutorPanelView$13.class
+dao\CommentDAO.class
 view\Login$6.class
 view\BooksAddAdminPanelView$3.class
 model\PersonaModel.class
 view\RegisterView$13.class
 view\EditorialAutorPanelView$9.class
 model\ComentarioModel.class
-model\DonacionesModel.class
 view\Login$9.class
 view\UserView$4.class
+view\BooksAddAdminPanelView$7.class
 view\AdminView$8.class
 view\EditorialAutorPanelView$3.class
 view\RegisterView$6.class
 uicomponents\Fonts.class
 view\AdminView$11.class
+view\PrestamosAdminPanelView.class
 view\RegisterView$11.class
 view\RegisterView$9.class
 dao\UserDAO.class
@@ -74,6 +80,7 @@ view\AdminView$2.class
 view\Login$1.class
 dao\EditorialDAO.class
 view\UserView$1.class
+uicomponents\CommentComponent.class
 service\PrestamoService.class
 view\BookInfoUserPanelView$2.class
 view\EditorialAutorPanelView$11.class
@@ -96,6 +103,7 @@ view\Login$3.class
 view\EditorialAutorPanelView$6.class
 view\AdminView$4.class
 view\EditorialAutorPanelView$10.class
+view\BookInfoAdminPanelView$2.class
 view\UserView$11.class
 view\BookInfoUserPanelView.class
 view\BooksAddAdminPanelView$6.class
@@ -104,6 +112,7 @@ view\UserView$5.class
 dao\AutorDAO.class
 uicomponents\RoundedLabel.class
 view\Login.class
+model\DonationModel.class
 view\DonacionesPanelView.class
 view\RegisterView$10.class
 view\RegisterView$3.class

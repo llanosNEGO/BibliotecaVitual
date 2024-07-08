@@ -4,8 +4,10 @@
  */
 package view;
 
+import java.awt.BorderLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import model.LibroModel;
 
 /**
@@ -57,8 +59,10 @@ public class BookInfoAdminPanelView extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         sinopsisPane = new javax.swing.JTextPane();
         tituloLabel = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        editButtonPanel = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        deleteButtonPanel = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(842, 535));
@@ -109,9 +113,71 @@ public class BookInfoAdminPanelView extends javax.swing.JPanel {
         tituloLabel.setFont(new java.awt.Font("Cascadia Mono", 1, 24)); // NOI18N
         tituloLabel.setText("Titulo");
 
-        jButton1.setText("Editar");
+        editButtonPanel.setBackground(new java.awt.Color(74, 92, 106));
+        editButtonPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        editButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editButtonPanelMouseClicked(evt);
+            }
+        });
 
-        jButton2.setText("Eliminar");
+        jLabel5.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Editar");
+
+        javax.swing.GroupLayout editButtonPanelLayout = new javax.swing.GroupLayout(editButtonPanel);
+        editButtonPanel.setLayout(editButtonPanelLayout);
+        editButtonPanelLayout.setHorizontalGroup(
+            editButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(editButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(editButtonPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel5)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        editButtonPanelLayout.setVerticalGroup(
+            editButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+            .addGroup(editButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(editButtonPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel5)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        deleteButtonPanel.setBackground(new java.awt.Color(74, 92, 106));
+        deleteButtonPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        deleteButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteButtonPanelMouseClicked(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Eliminar");
+
+        javax.swing.GroupLayout deleteButtonPanelLayout = new javax.swing.GroupLayout(deleteButtonPanel);
+        deleteButtonPanel.setLayout(deleteButtonPanelLayout);
+        deleteButtonPanelLayout.setHorizontalGroup(
+            deleteButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(deleteButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(deleteButtonPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        deleteButtonPanelLayout.setVerticalGroup(
+            deleteButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 29, Short.MAX_VALUE)
+            .addGroup(deleteButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(deleteButtonPanelLayout.createSequentialGroup()
+                    .addGap(0, 6, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addGap(0, 7, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -119,28 +185,24 @@ public class BookInfoAdminPanelView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bookImage, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(bookImage, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(121, 121, 121)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(26, 26, 26))
+                    .addComponent(tituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(125, 125, 125)
+                .addComponent(editButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(deleteButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bookImage, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -149,30 +211,49 @@ public class BookInfoAdminPanelView extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addGap(15, 15, 15)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(11, 11, 11))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(deleteButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void editButtonPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editButtonPanelMouseClicked
+        // TODO add your handling code here:
+        BooksAddAdminPanelView bookEdit = new BooksAddAdminPanelView(book);
+        bookEdit.setSize(842,535);
+        bookEdit.setLocation(0, 0);
+        removeAll();
+        add(bookEdit, BorderLayout.CENTER);
+        repaint();
+        revalidate();
+        System.out.println("o si nmni");
+    }//GEN-LAST:event_editButtonPanelMouseClicked
+
+    private void deleteButtonPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonPanelMouseClicked
+        // TODO add your handling code here:
+        
+        JOptionPane.showMessageDialog(null, "Seguro que quieres eliminar");
+    }//GEN-LAST:event_deleteButtonPanelMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel autorLabel;
     private javax.swing.JLabel bookImage;
+    private javax.swing.JPanel deleteButtonPanel;
+    private javax.swing.JPanel editButtonPanel;
     private javax.swing.JLabel editorialLabel;
     private javax.swing.JLabel isbnLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;

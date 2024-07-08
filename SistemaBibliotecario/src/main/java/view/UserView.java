@@ -55,7 +55,7 @@ public class UserView extends javax.swing.JFrame {
         configureBooksPanelView();
         setIconLabel(logoutIconLabel, "/icons/logout.png");
         loadUserProfilePhoto();
-         System.out.println(user.getId());
+        
     }
   
     @SuppressWarnings("unchecked")

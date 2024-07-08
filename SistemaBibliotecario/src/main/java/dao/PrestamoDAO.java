@@ -25,16 +25,25 @@ import service.UserService;
  */
 public class PrestamoDAO implements ICrudService<PrestamoModel> {
     private MySqlConnection conexion = new MySqlConnection();
-    private LibroService bookService;
-    private UserService userService;
+    //private LibroService bookService;
+    //private UserService userService;
+    private BookDAO bookDAO;
+    private UserDAO userDAO;
+    
     private LibroModel book;
     private UsuarioModel user;
-    private AutorService autorService = new AutorService(new AutorDAO());
-    private EditorialService editorialService = new EditorialService(new EditorialDAO());
+    //private AutorService autorService = new AutorService(new AutorDAO());
+    //private EditorialService editorialService = new EditorialService(new EditorialDAO());
     
     public PrestamoDAO(){
-        
+       
     }
+
+    public PrestamoDAO(BookDAO bookDAO, UserDAO userDAO) {
+        this.bookDAO = bookDAO;
+        this.userDAO = userDAO;
+    }
+    
     
     @Override
     public List<PrestamoModel> selectAll() {
@@ -42,8 +51,8 @@ public class PrestamoDAO implements ICrudService<PrestamoModel> {
         List<PrestamoModel> prestamos = new ArrayList<>();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        bookService = new LibroService(new BookDAO());
-        userService = new UserService(new UserDAO()); 
+        //bookService = new LibroService(new BookDAO());
+        //userService = new UserService(new UserDAO()); 
     
         try {
             statement = conexion.getConnection().prepareStatement(sql);
@@ -57,8 +66,8 @@ public class PrestamoDAO implements ICrudService<PrestamoModel> {
                 prestamo.setCantidad(resultSet.getInt("cantidad"));
                 prestamo.setFechaPrestamo(resultSet.getDate("fecha_prestamo"));
                 prestamo.setFechaDevolucion(resultSet.getDate("fecha_devolucion"));
-                prestamo.setLibro(bookService.selectBookById(resultSet.getInt("id_book")));
-                prestamo.setUsuario(userService.getUserById(resultSet.getInt("id_user")));
+                prestamo.setLibro(bookDAO.selectById(resultSet.getInt("id_book")));
+                prestamo.setUsuario(userDAO.selectById(resultSet.getInt("id_user")));
                 
             }
         } catch (SQLException e) {
@@ -128,9 +137,7 @@ public class PrestamoDAO implements ICrudService<PrestamoModel> {
         List<PrestamoModel> prestamos = new ArrayList<>();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        bookService = new LibroService(new BookDAO(autorService, editorialService));
-        userService = new UserService(new UserDAO()); 
-    
+      
         try {
             statement = conexion.getConnection().prepareStatement(sql);
             statement.setInt(1, id);
@@ -143,8 +150,50 @@ public class PrestamoDAO implements ICrudService<PrestamoModel> {
                 prestamo.setCantidad(resultSet.getInt("cantidad"));
                 prestamo.setFechaPrestamo(resultSet.getDate("fecha_prestamo"));
                 prestamo.setFechaDevolucion(resultSet.getDate("fecha_devolucion"));
-                prestamo.setLibro(bookService.selectBookById(resultSet.getInt("id_book")));
-                prestamo.setUsuario(userService.getUserById(resultSet.getInt("id_user")));
+                prestamo.setLibro(bookDAO.selectById(resultSet.getInt("id_book")));
+                prestamo.setUsuario(userDAO.selectById(resultSet.getInt("id_user")));
+                prestamos.add(prestamo);
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if (resultSet != null) {
+                resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    
+        return prestamos;
+    }
+    
+     public List<PrestamoModel> selectByIdOfBook(int id) {
+        String sql = "SELECT * FROM prestamo WHERE id_book = ?;";
+        
+        List<PrestamoModel> prestamos = new ArrayList<>();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+      
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+        
+            while (resultSet.next()) { 
+                
+                PrestamoModel prestamo = new PrestamoModel();
+                prestamo.setId(resultSet.getInt("id"));
+                prestamo.setCantidad(resultSet.getInt("cantidad"));
+                prestamo.setFechaPrestamo(resultSet.getDate("fecha_prestamo"));
+                prestamo.setFechaDevolucion(resultSet.getDate("fecha_devolucion"));
+                prestamo.setLibro(bookDAO.selectById(resultSet.getInt("id_book")));
+                prestamo.setUsuario(userDAO.selectById(resultSet.getInt("id_user")));
                 prestamos.add(prestamo);
                 
             }

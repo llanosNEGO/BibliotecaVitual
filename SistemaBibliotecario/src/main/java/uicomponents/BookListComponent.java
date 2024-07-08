@@ -20,7 +20,7 @@ public class BookListComponent extends JPanel {
     public BookListComponent() {
         setLayout(new BorderLayout());
         
-        //setPreferredSize(new Dimension(50, 30));
+        
         // Placeholder image
         ImageIcon imageIcon = new ImageIcon(new ImageIcon(getClass().getResource("/booksImages/9786125125064.jpg")).getImage().getScaledInstance(70, 100, 0)); // Replace with actual image path
         imageLabel = new JLabel(imageIcon);
@@ -35,7 +35,7 @@ public class BookListComponent extends JPanel {
         bookTitleLabel.setFont(new Font("Cascadia Mono", Font.BOLD, 16));
         textPanel.add(bookTitleLabel);
 
-        timeLabel = new JLabel("Time: 5 nights");
+        timeLabel = new JLabel("Time: In which class is paintComponent defined? why it returns JLabel in void method?");
         timeLabel.setFont(new Font("Cascadia Mono", Font.PLAIN, 14));
         textPanel.add(timeLabel);
 
@@ -46,6 +46,7 @@ public class BookListComponent extends JPanel {
         // Three dots button
         JButton dotsButton = new JButton("Cancelar");
         add(dotsButton, BorderLayout.EAST);
+        setPreferredSize(new Dimension(70, 100));
     }
 
     public void setImageLabel(String url) {

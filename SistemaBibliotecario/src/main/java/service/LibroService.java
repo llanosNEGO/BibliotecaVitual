@@ -5,9 +5,14 @@
 package service;
 
 
+import dao.AutorDAO;
 import dao.BookDAO;
+import dao.EditorialDAO;
+import dao.PrestamoDAO;
+import dao.UserDAO;
 import java.util.List;
 import model.LibroModel;
+import model.PrestamoModel;
 
 /**
  *
@@ -16,8 +21,7 @@ import model.LibroModel;
 public class LibroService{
     
     private BookDAO bookDAO;
-    private AutorService autorService;
-    private EditorialService editorialService;
+    private PrestamoDAO prestamosDAO;
 
     public LibroService(BookDAO bookDAO) {
         
@@ -28,20 +32,33 @@ public class LibroService{
     
     
    
-    public void insertBook(LibroModel bookEntity) {
+    public void addBook(LibroModel bookEntity) {
         
         bookDAO.insertInto(bookEntity);
         
     }
 
     
-    public LibroModel selectBookById(int id) {
+    public LibroModel getBookById(int id) {
         
         return bookDAO.selectById(id);
         
         
     }
 
+    public int calcCantoOfBooks(int id){
+       prestamosDAO = new PrestamoDAO(new BookDAO(new AutorDAO(), new EditorialDAO()), new UserDAO());
+       LibroModel book = bookDAO.selectById(id);
+       List<PrestamoModel> prestamos = prestamosDAO.selectByIdOfBook(id);
+       int numtAvailableBooks = book.getTotalEjemplares();
+       int numBooksBorrowed = prestamos.stream().mapToInt(PrestamoModel::getCantidad).sum();
+       numtAvailableBooks = numtAvailableBooks - numBooksBorrowed;
+        
+        
+       bookDAO.updateNumOfBooks(numtAvailableBooks, id);
+        
+       return 0;
+    }
    
     public void delete(int id) {
         

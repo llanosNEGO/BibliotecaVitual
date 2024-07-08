@@ -22,20 +22,20 @@ import service.EditorialService;
 public class BookDAO implements ICrudService<LibroModel> {
     
     private MySqlConnection conexion = new MySqlConnection();
-    private AutorService autorService;
-    private EditorialService editorialService;
+    private AutorDAO autorDAO;
+    private EditorialDAO editorialDAO;
 
-    public BookDAO(AutorService autorService, EditorialService editorialService) {
-        this.autorService = autorService;
-        this.editorialService = editorialService;
+    public BookDAO(AutorDAO autorDAO, EditorialDAO editorialDAO) {
+        this.autorDAO = autorDAO;
+        this.editorialDAO = editorialDAO;
     }
-    
+   
     public  BookDAO(){};
     
     
     @Override
     public void insertInto(LibroModel bookEntity) {
-        String sql = "INSERT INTO libro(titulo, sinopsis, url_image, isbn, anio_publicacion, total_ejemplares, disponibles, id_author, id_editorial) VALUES (?,?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO libro(titulo, sinopsis, url_image, isbn, anio_publicacion, total_ejemplares, disponibles, id_author, id_editorial, donador) VALUES (?,?,?,?,?,?,?,?,?,?);";
         PreparedStatement statement = null;
         try {
             statement = conexion.getConnection().prepareStatement(sql);
@@ -48,6 +48,7 @@ public class BookDAO implements ICrudService<LibroModel> {
             statement.setInt(7, bookEntity.getTotalEjemplares());
             statement.setInt(8, bookEntity.getAutor().getId());
             statement.setInt(9, bookEntity.getEditorial().getId());
+            statement.setString(10, bookEntity.getDonador());
 
             // Execute the statement
             statement.executeUpdate();
@@ -81,9 +82,11 @@ public class BookDAO implements ICrudService<LibroModel> {
             libro.setSinopsis(resultSet.getString("sinopsis"));
             libro.setUrlImage(resultSet.getString("url_image"));
             libro.setIsbn(resultSet.getString("isbn"));
+            libro.setTotalEjemplares(resultSet.getInt("total_ejemplares"));
+            libro.setSinPrestar(resultSet.getInt("disponibles"));
             libro.setAnioPublicacion(anioPublicacionDate);
-            libro.setAutor( autorService.selectById(resultSet.getInt("id_author")));
-            libro.setEditorial(editorialService.getEditorialById(resultSet.getInt("id_editorial")));
+            libro.setAutor( autorDAO.selectById(resultSet.getInt("id_author")));
+            libro.setEditorial(editorialDAO.selectById(resultSet.getInt("id_editorial")));
             }    
            
         } catch (SQLException e) {
@@ -107,14 +110,41 @@ public class BookDAO implements ICrudService<LibroModel> {
     @Override
     public void delete(int id) {
         String sql = "DELETE * FROM libro WHERE id = ?;";
-        /*try{
-        }catch(SQLException e){
-        }*/
+        PreparedStatement statement = null;
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            System.out.println("Libro eliminado existosamente!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } 
     }
 
     @Override
     public void update(LibroModel entity) {
-        String sql = "UPDATE libro SET WHERE id = ?";
+        String sql = "UPDATE libro SET titulo = ?, sipnosis = ?, url_image = ?, isbn = ?, anio_publicacion = ?, total_ejemplares = ?, "
+                + "donador = ?, id_author = ?, id_editorial = ? WHERE id = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setString(1, entity.getTitulo());
+            statement.setString(2, entity.getSinopsis());
+            statement.setString(3, entity.getUrlImage());
+            statement.setString(4, entity.getIsbn());
+            statement.setString(5, entity.getAnioPublicacion().toString());
+            statement.setInt(6, entity.getTotalEjemplares());
+            statement.setString(7,entity.getDonador());
+            statement.setInt(8, entity.getAutor().getId() );
+            statement.setInt(9,entity.getEditorial().getId());
+            statement.setInt(10,entity.getId());
+            statement.executeUpdate();
+            System.out.println("Libro modificado existosamente!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } 
     }
 
     @Override
@@ -132,8 +162,7 @@ public class BookDAO implements ICrudService<LibroModel> {
         List<LibroModel> libros = new ArrayList<>();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        autorService = new AutorService(new AutorDAO());
-        editorialService = new EditorialService( new EditorialDAO()); 
+         
     
         try {
             statement = conexion.getConnection().prepareStatement(sql);
@@ -141,10 +170,6 @@ public class BookDAO implements ICrudService<LibroModel> {
         
             while (resultSet.next()) { 
                 String anioPublicacionStr = resultSet.getString("anio_publicacion");
-                // Convertir la cadena a Date usando SimpleDateFormat
-                //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy");
-                //LocalDate anioPublicacionDate = LocalDate.parse(anioPublicacionStr, formatter);
-                
                 Year anioPublicacionDate = Year.parse(anioPublicacionStr.trim());
                 LibroModel libro = new LibroModel();
                 libro.setId(resultSet.getInt("id"));
@@ -152,9 +177,11 @@ public class BookDAO implements ICrudService<LibroModel> {
                 libro.setSinopsis(resultSet.getString("sinopsis"));
                 libro.setUrlImage(resultSet.getString("url_image"));
                 libro.setIsbn(resultSet.getString("isbn"));
+                libro.setTotalEjemplares(resultSet.getInt("total_ejemplares"));
+                libro.setSinPrestar(resultSet.getInt("disponibles"));
                 libro.setAnioPublicacion(anioPublicacionDate);
-                libro.setAutor(autorService.selectById(resultSet.getInt("id_author")));
-                libro.setEditorial(editorialService.getEditorialById(resultSet.getInt("id_editorial")));
+                libro.setAutor(autorDAO.selectById(resultSet.getInt("id_author")));
+                libro.setEditorial(editorialDAO.selectById(resultSet.getInt("id_editorial")));
                 libros.add(libro);
             }
         } catch (SQLException e) {
@@ -174,5 +201,23 @@ public class BookDAO implements ICrudService<LibroModel> {
     
         return libros;
     }
+    
+    public void updateNumOfBooks(int available, int id){
+        String sql = "UPDATE libro SET disponibles = ? WHERE id = ?";
+        PreparedStatement statement = null;
+        try {
+            statement = conexion.getConnection().prepareStatement(sql);
+            statement.setInt(1, available);
+            statement.setInt(2, id);
+            
+
+            // Execute the statement
+            statement.executeUpdate();
+            System.out.println("Libro modificado existosamente!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        } 
+    } 
 
 }

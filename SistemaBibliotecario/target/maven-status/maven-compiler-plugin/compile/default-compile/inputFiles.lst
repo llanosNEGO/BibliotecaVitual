@@ -1,14 +1,18 @@
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\model\AutorModel.java
+C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\model\DonationModel.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\model\UsuarioModel.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\view\BookInfoUserPanelView.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\service\PrestamoService.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\uicomponents\BookPanel.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\dao\PrestamoDAO.java
+C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\view\PrestamosAdminPanelView.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\model\ReservaModel.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\view\UserView.java
+C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\service\CommentService.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\view\BooksPanelView.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\view\EditorialAutorPanelView.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\view\DonacionesPanelView.java
+C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\uicomponents\CommentComponent.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\model\EditorialModel.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\uicomponents\CircularLabel.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\model\PersonaModel.java
@@ -21,6 +25,7 @@ C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\dao\EditorialDAO.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\uicomponents\Fonts.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\service\UserService.java
+C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\service\DonationService.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\view\AdminView.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\service\EditorialService.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\view\Login.java
@@ -33,7 +38,8 @@ C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\dao\BookDAO.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\dao\ICrudService.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\model\ComentarioModel.java
+C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\dao\DonationDAO.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\model\LibroModel.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\view\BookInfoAdminPanelView.java
 C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\service\AutorService.java
-C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\model\DonacionesModel.java
+C:\Users\Hamer\Documents\neatbeansprojects\BibliotecaVitual\SistemaBibliotecario\src\main\java\dao\CommentDAO.java

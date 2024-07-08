@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package view;
+import dao.AutorDAO;
 import dao.BookDAO;
+import dao.EditorialDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
@@ -34,31 +36,22 @@ public class BooksPanelView extends javax.swing.JPanel {
     private JScrollPane jScrollPane;
     private boolean isAdmin;
     private UsuarioModel user;
-    
+
     public BooksPanelView() {
-       initComponents();
-       this.bookService = new LibroService(new BookDAO());
-       setSize(842, 535);
-       displayBooks();
+        this(false, null);
     }
-    
-    public BooksPanelView(boolean isAdmin, UsuarioModel user) {
-       initComponents();
-       this.bookService = new LibroService(new BookDAO());
-       this.isAdmin = isAdmin;
-       this.user = user;
-       setSize(842, 535);
-       displayBooks();
-        System.out.println(user.getNombres());
-       
-    }
-    
+
     public BooksPanelView(boolean isAdmin) {
-       initComponents();
-       this.bookService = new LibroService(new BookDAO());
-       setSize(842, 535);
-       displayBooks();
-       this.isAdmin = isAdmin;
+        this(isAdmin, null);
+    }
+
+    public BooksPanelView(boolean isAdmin, UsuarioModel user) {
+        this.isAdmin = isAdmin;
+        this.user = user;
+        this.bookService = new LibroService(new BookDAO(new AutorDAO(), new EditorialDAO()));
+        initComponents();
+        setSize(842, 535);
+        displayBooks();
     }
 
    
@@ -87,7 +80,7 @@ public class BooksPanelView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void displayBooks(){
-        libros = bookService.getAllBooks();
+        List<LibroModel> libros = bookService.getAllBooks();
         bookGalleryPanel = new JPanel();
         GridLayout layout = new GridLayout(0, 3, 20, 20);         
         bookGalleryPanel.setLayout(layout);
@@ -95,6 +88,8 @@ public class BooksPanelView extends javax.swing.JPanel {
         bookGalleryPanel.setLocation(0,0);
         bookGalleryPanel.setBackground(new Color(255,255,255));
         for (LibroModel element : libros) {
+            System.out.println(element.getTitulo());
+            System.out.println(element.getUrlImage());
             BookPanel bookView = new BookPanel();
             
             bookView.setBookName(element.getTitulo());
@@ -126,7 +121,7 @@ public class BooksPanelView extends javax.swing.JPanel {
                         add(bookInfo, BorderLayout.CENTER);
                         repaint();
                         revalidate();
-                        System.out.println("Hola");
+                        System.out.println("Hola user");
                     }
                     
                     

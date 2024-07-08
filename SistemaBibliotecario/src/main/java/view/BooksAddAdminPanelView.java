@@ -6,6 +6,7 @@ package view;
 
 import dao.AutorDAO;
 import dao.BookDAO;
+import dao.DonationDAO;
 import dao.EditorialDAO;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,6 +19,7 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -29,6 +31,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerNumberModel;
 import model.*;
 import service.*;
 
@@ -41,7 +44,9 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
     private LibroService bookService;
     private EditorialService editorialService;
     private AutorService authorService;
+    private DonationService donationService;
     private BookDAO bookDAO;
+    private DonationDAO donationDAO;
     private DefaultListModel<String> listAuthorModel = new DefaultListModel<>();
     private DefaultListModel<String> listEditorialModel = new DefaultListModel<>();
     private List<AutorModel> authors;
@@ -52,20 +57,50 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
     private String imageBookfileExtentions;
     private Path projectDir;
     
-    public BooksAddAdminPanelView() {
-        initComponents();
-        // initializing services
-        editorialService = new EditorialService(new EditorialDAO());
-        authorService = new AutorService(new AutorDAO());
-        bookDAO = new BookDAO(authorService, editorialService);
-        bookService = new LibroService(bookDAO);
-
-        //
+     public BooksAddAdminPanelView() {
+        initializeComponents();
+        setupServices();
         this.setSize(1076, 535);
-        projectDir = Paths.get(System.getProperty("user.dir"));
-        setImageLabel(imageBookLabel,"/icons/add128.png", 100, 100, true );
+        setImageLabel(imageBookLabel, "/icons/add128.png", 100, 100, true);
         populateJlists();
-        
+        editButtonPanel.setVisible(false);
+    }
+
+    public BooksAddAdminPanelView(LibroModel book) {
+        initializeComponents();
+        setupServices();
+        populateBookDetails(book);
+        this.setSize(1076, 535);
+        addButtonPanel.setVisible(false);
+        populateJlists();
+        setImageLabel(imageBookLabel, book.getUrlImage(), 200, 300, true);
+    }
+
+    private void initializeComponents() {
+        initComponents(); // Assuming this initializes GUI components
+        projectDir = Paths.get(System.getProperty("user.dir"));
+        amountSpinner.setModel(new SpinnerNumberModel(0, 0, 1000, 1));
+    }
+
+    private void setupServices() {
+        AutorDAO autorDAO = new AutorDAO();
+        EditorialDAO editorialDAO = new EditorialDAO();
+        donationDAO = new DonationDAO();
+        bookDAO = new BookDAO(autorDAO, editorialDAO);
+        donationService = new DonationService(donationDAO);
+        bookService = new LibroService(bookDAO);
+        editorialService = new EditorialService(editorialDAO);
+        authorService = new AutorService(autorDAO);
+    }
+
+    private void populateBookDetails(LibroModel book) {
+        titleTextField.setText(book.getTitulo());
+        isbnTextField.setText(book.getIsbn());
+        yearTextField.setText(book.getAnioPublicacion().toString());
+        sinopsisTextPane.setText(book.getSinopsis());
+        amountSpinner.setValue(book.getSinPrestar());
+        authorList.setSelectedValue(book.getAutor().getNombre(), true);
+        editorialList.setSelectedValue(book.getEditorial().getNombre(), true);
     }
 
     
@@ -83,10 +118,9 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         yearTextField = new javax.swing.JTextField();
         imageBookLabel = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        donadoRadioButton = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
         donadorTextField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         amountSpinner = new javax.swing.JSpinner();
         jLabel7 = new javax.swing.JLabel();
@@ -95,7 +129,12 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
         authorList = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
         editorialList = new javax.swing.JList<>();
-        displayBooks = new javax.swing.JLabel();
+        addButtonPanel = new javax.swing.JPanel();
+        addButtonLabel = new javax.swing.JLabel();
+        editButtonPanel = new javax.swing.JPanel();
+        addButtonLabel1 = new javax.swing.JLabel();
+        seeBooksPanelButton = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(842, 535));
@@ -138,21 +177,13 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
             }
         });
 
-        jRadioButton1.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
-        jRadioButton1.setText("Donación");
+        donadoRadioButton.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
+        donadoRadioButton.setText("Donación");
 
         jLabel6.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         jLabel6.setText("By:");
 
         donadorTextField.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-
-        jButton1.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Cascadia Code", 0, 12)); // NOI18N
         jLabel5.setText("Cantidad:");
@@ -181,20 +212,109 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
         editorialList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane5.setViewportView(editorialList);
 
-        displayBooks.setText("Ver Libros");
-        displayBooks.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        displayBooks.addMouseListener(new java.awt.event.MouseAdapter() {
+        addButtonPanel.setBackground(new java.awt.Color(74, 92, 106));
+        addButtonPanel.setForeground(new java.awt.Color(255, 255, 255));
+        addButtonPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                displayBooksMouseClicked(evt);
+                addButtonPanelMouseClicked(evt);
             }
         });
+
+        addButtonLabel.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        addButtonLabel.setForeground(new java.awt.Color(255, 255, 255));
+        addButtonLabel.setText("Agregar");
+
+        javax.swing.GroupLayout addButtonPanelLayout = new javax.swing.GroupLayout(addButtonPanel);
+        addButtonPanel.setLayout(addButtonPanelLayout);
+        addButtonPanelLayout.setHorizontalGroup(
+            addButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(addButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(addButtonPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(addButtonLabel)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        addButtonPanelLayout.setVerticalGroup(
+            addButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+            .addGroup(addButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(addButtonPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(addButtonLabel)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        editButtonPanel.setBackground(new java.awt.Color(74, 92, 106));
+        editButtonPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        editButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editButtonPanelMouseClicked(evt);
+            }
+        });
+
+        addButtonLabel1.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        addButtonLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        addButtonLabel1.setText("Guardar");
+
+        javax.swing.GroupLayout editButtonPanelLayout = new javax.swing.GroupLayout(editButtonPanel);
+        editButtonPanel.setLayout(editButtonPanelLayout);
+        editButtonPanelLayout.setHorizontalGroup(
+            editButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editButtonPanelLayout.createSequentialGroup()
+                .addGap(0, 25, Short.MAX_VALUE)
+                .addComponent(addButtonLabel1)
+                .addGap(0, 25, Short.MAX_VALUE))
+        );
+        editButtonPanelLayout.setVerticalGroup(
+            editButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editButtonPanelLayout.createSequentialGroup()
+                .addGap(0, 7, Short.MAX_VALUE)
+                .addComponent(addButtonLabel1)
+                .addGap(0, 8, Short.MAX_VALUE))
+        );
+
+        seeBooksPanelButton.setBackground(new java.awt.Color(74, 92, 106));
+        seeBooksPanelButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        seeBooksPanelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                seeBooksPanelButtonMouseClicked(evt);
+            }
+        });
+
+        jLabel9.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel9.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Ver");
+
+        javax.swing.GroupLayout seeBooksPanelButtonLayout = new javax.swing.GroupLayout(seeBooksPanelButton);
+        seeBooksPanelButton.setLayout(seeBooksPanelButtonLayout);
+        seeBooksPanelButtonLayout.setHorizontalGroup(
+            seeBooksPanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(seeBooksPanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(seeBooksPanelButtonLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel9)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        seeBooksPanelButtonLayout.setVerticalGroup(
+            seeBooksPanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+            .addGroup(seeBooksPanelButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(seeBooksPanelButtonLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel9)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,21 +344,22 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
                         .addComponent(jLabel5)
                         .addGap(5, 5, 5)
                         .addComponent(amountSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jRadioButton1)
+                    .addComponent(donadoRadioButton)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(donadorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
-                        .addComponent(jButton1)
-                        .addGap(17, 17, 17)
-                        .addComponent(displayBooks)))
-                .addContainerGap())
+                        .addComponent(addButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(editButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(seeBooksPanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(48, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,38 +391,19 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
                     .addComponent(jLabel5)
                     .addComponent(amountSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addComponent(donadoRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(donadorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(displayBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
+                    .addComponent(addButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(seeBooksPanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(donadorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        isbn = isbnTextField.getText().trim();
-        imagetargetDirectory = Paths.get(projectDir + "/src/main/resources/booksImages/"+ isbn +"."+ imageBookfileExtentions);
-        Year year = Year.parse(yearTextField.getText().trim());
-        String titleBook = titleTextField.getText().trim().toUpperCase();    
-        String sinopsis = sinopsisTextPane.getText().trim();
-        String urlImageBook = "/booksImages/"+isbn+"."+imageBookfileExtentions;
-        String donador = donadorTextField.getText().trim();
-        int amount = (Integer)amountSpinner.getValue();
-        AutorModel author = authors.stream().filter(a -> a.getNombre().equals(authorList.getSelectedValue())).findFirst().orElse(null);
-        EditorialModel editorial1 = editorials.stream().filter(editorial -> editorial.getNombre().equals(editorialList.getSelectedValue())).findFirst().orElse(null);
-        
-        LibroModel book = new LibroModel(titleBook,sinopsis, urlImageBook, isbn, year, author ,editorial1 );
-        bookService.insertBook(book);
-        try {
-            Files.copy(imageBooksourcePath, imagetargetDirectory, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException ex) {
-            Logger.getLogger(BooksAddAdminPanelView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void imageBookLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageBookLabelMouseClicked
         JFileChooser fileChooser = new JFileChooser();
@@ -323,7 +425,80 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_titleTextFieldActionPerformed
 
-    private void displayBooksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayBooksMouseClicked
+    private void addButtonPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonPanelMouseClicked
+
+        isbn = isbnTextField.getText().trim();
+        imagetargetDirectory = Paths.get(projectDir + "/src/main/resources/booksImages/"+ isbn +"."+ imageBookfileExtentions);
+        Year year;
+        String titleBook = titleTextField.getText().trim().toUpperCase();    
+        String sinopsis = sinopsisTextPane.getText().trim();
+        String urlImageBook = "/booksImages/"+isbn+"."+imageBookfileExtentions;
+        boolean donado = donadoRadioButton.isSelected();
+        String donador = donadorTextField.getText().trim();
+        int amount = (Integer) amountSpinner.getValue();
+        String selectedAuthor = authorList.getSelectedValue();
+        String selectedEditorial = editorialList.getSelectedValue();
+        
+        if (imageBooksourcePath == null) {
+               JOptionPane.showMessageDialog(null, "Debes seleccionar una imagen", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (isbn.isEmpty()) {
+               JOptionPane.showMessageDialog(null, "ISBN no puede estar vacío", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (selectedAuthor == null) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un autor", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (selectedEditorial == null) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una editorial", "Error de Validación", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (titleBook.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Title no puede estar vacío", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (sinopsis.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Sinopsis no puede estar vacío", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if(donado){
+            if (donador.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Donator no puede estar vacío", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }         
+        }else{
+            donador = null;
+        }
+        try {
+            year = Year.parse(yearTextField.getText().trim());
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Invalid year format", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        AutorModel author = authors.stream().filter(a -> a.getNombre().equals(selectedAuthor)).findFirst().orElse(null);
+        EditorialModel editorial1 = editorials.stream().filter(editorial -> editorial.getNombre().equals(selectedEditorial)).findFirst().orElse(null);
+        LibroModel book = new LibroModel(titleBook, sinopsis, urlImageBook, isbn, year, author, editorial1, amount, amount, donador);
+        bookService.addBook(book);
+
+        try {
+            Files.copy(imageBooksourcePath, imagetargetDirectory, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ex) {
+            Logger.getLogger(BooksAddAdminPanelView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error copying image file", "File Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_addButtonPanelMouseClicked
+
+    private void editButtonPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editButtonPanelMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editButtonPanelMouseClicked
+
+    private void seeBooksPanelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seeBooksPanelButtonMouseClicked
+        // TODO add your handling code here:
+        setupServices();
         BooksPanelView b1 = new BooksPanelView(true);
         b1.setSize(842,535);
         b1.setLocation(0, 0);
@@ -331,7 +506,7 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
         this.add(b1, BorderLayout.CENTER);
         this.repaint();
         this.revalidate();
-    }//GEN-LAST:event_displayBooksMouseClicked
+    }//GEN-LAST:event_seeBooksPanelButtonMouseClicked
 
     private void populateJlists(){
         authors = authorService.getAllAuthors();
@@ -362,14 +537,17 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addButtonLabel;
+    private javax.swing.JLabel addButtonLabel1;
+    private javax.swing.JPanel addButtonPanel;
     private javax.swing.JSpinner amountSpinner;
     private javax.swing.JList<String> authorList;
-    private javax.swing.JLabel displayBooks;
+    private javax.swing.JRadioButton donadoRadioButton;
     private javax.swing.JTextField donadorTextField;
+    private javax.swing.JPanel editButtonPanel;
     private javax.swing.JList<String> editorialList;
     private javax.swing.JLabel imageBookLabel;
     private javax.swing.JTextField isbnTextField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -378,10 +556,11 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JPanel seeBooksPanelButton;
     private javax.swing.JTextPane sinopsisTextPane;
     private javax.swing.JTextField titleTextField;
     private javax.swing.JTextField yearTextField;

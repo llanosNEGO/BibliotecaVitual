@@ -25,6 +25,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import model.UsuarioModel;
 import service.UserService;
 
@@ -490,7 +491,36 @@ public class RegisterView extends javax.swing.JFrame {
         String dni = dniTextField.getText().trim();
         String email = emailTextField.getText().trim();
         String address = direccionTextField.getText().trim();
-        String urlProfilePhoto = selectedFile != null? "/UserprofilePhotos/"+username.toLowerCase()+"."+photoProfileFileExtentions : "/UserprofilePhotos/defaultPhoto.jpg"; 
+        String urlProfilePhoto = selectedFile != null? "/UserprofilePhotos/"+username.toLowerCase()+"."+photoProfileFileExtentions : "/UserprofilePhotos/defaultPhoto.jpg";
+        
+        if (username.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Username no puede estar vacío.");
+            return;
+        }
+        if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Password no puede estar vacío.");
+            return;
+        }
+        if (names.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Nombres no puede estar vacío.");
+            return;
+        }
+        if (lastnames.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Apellidos no puede estar vacío.");
+            return;
+        }
+        if (dni.isEmpty() || !dni.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "DNI no puede estar vacío.");
+            return;
+        }
+        if (email.isEmpty() || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            JOptionPane.showMessageDialog(null, "Email no valido.");
+            return;
+        }
+        if (address.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Address no puede estar vacío..");
+            return;
+        }
         userService.insertUser(new UsuarioModel(username, password, 0 ,urlProfilePhoto,names, lastnames, dni, address, email));
         if(selectedFile == null) {this.dispose(); return;}
         

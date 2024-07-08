@@ -48,7 +48,7 @@ public class AdminView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         buttonEditorialAuthor = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        buttonGive = new javax.swing.JPanel();
+        buttonLoan = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         buttonReserve = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -166,38 +166,38 @@ public class AdminView extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        buttonGive.setBackground(new java.awt.Color(39, 60, 65));
-        buttonGive.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        buttonGive.addMouseListener(new java.awt.event.MouseAdapter() {
+        buttonLoan.setBackground(new java.awt.Color(39, 60, 65));
+        buttonLoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buttonLoan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonGiveMouseClicked(evt);
+                buttonLoanMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                buttonGiveMouseEntered(evt);
+                buttonLoanMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                buttonGiveMouseExited(evt);
+                buttonLoanMouseExited(evt);
             }
         });
 
         jLabel3.setFont(new java.awt.Font("Cascadia Mono", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/regalo.png"))); // NOI18N
-        jLabel3.setText("DONACIONES");
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/documento.png"))); // NOI18N
+        jLabel3.setText("PRESTAMOS");
 
-        javax.swing.GroupLayout buttonGiveLayout = new javax.swing.GroupLayout(buttonGive);
-        buttonGive.setLayout(buttonGiveLayout);
-        buttonGiveLayout.setHorizontalGroup(
-            buttonGiveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(buttonGiveLayout.createSequentialGroup()
+        javax.swing.GroupLayout buttonLoanLayout = new javax.swing.GroupLayout(buttonLoan);
+        buttonLoan.setLayout(buttonLoanLayout);
+        buttonLoanLayout.setHorizontalGroup(
+            buttonLoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttonLoanLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        buttonGiveLayout.setVerticalGroup(
-            buttonGiveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(buttonGiveLayout.createSequentialGroup()
+        buttonLoanLayout.setVerticalGroup(
+            buttonLoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttonLoanLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel3)
                 .addContainerGap(16, Short.MAX_VALUE))
@@ -252,7 +252,7 @@ public class AdminView extends javax.swing.JFrame {
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonGive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonLoan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonEditorialAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonBook, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
@@ -279,7 +279,7 @@ public class AdminView extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(buttonEditorialAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(buttonGive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonLoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(buttonReserve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
@@ -398,26 +398,26 @@ public class AdminView extends javax.swing.JFrame {
         buttonEditorialAuthor.setBackground(bgColor);
     }//GEN-LAST:event_buttonEditorialAuthorMouseExited
 
-    private void buttonGiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGiveMouseClicked
+    private void buttonLoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLoanMouseClicked
         // TODO add your handling code here:
-        DonacionesPanelView dv1 = new DonacionesPanelView();
+        PrestamosAdminPanelView dv1 = new PrestamosAdminPanelView();
         dv1.setSize(836,535);
         dv1.setLocation(0, 0);
         content.removeAll();
         content.add(dv1, BorderLayout.CENTER);
         content.revalidate();
         content.repaint();
-    }//GEN-LAST:event_buttonGiveMouseClicked
+    }//GEN-LAST:event_buttonLoanMouseClicked
 
-    private void buttonGiveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGiveMouseEntered
+    private void buttonLoanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLoanMouseEntered
         // TODO add your handling code here:
-        buttonGive.setBackground(focusColor);
-    }//GEN-LAST:event_buttonGiveMouseEntered
+        buttonLoan.setBackground(focusColor);
+    }//GEN-LAST:event_buttonLoanMouseEntered
 
-    private void buttonGiveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGiveMouseExited
+    private void buttonLoanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLoanMouseExited
         // TODO add your handling code here:
-        buttonGive.setBackground(bgColor);
-    }//GEN-LAST:event_buttonGiveMouseExited
+        buttonLoan.setBackground(bgColor);
+    }//GEN-LAST:event_buttonLoanMouseExited
 
     private void buttonReserveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonReserveMouseClicked
         // TODO add your handling code here:
@@ -518,7 +518,7 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JPanel bg;
     private javax.swing.JPanel buttonBook;
     private javax.swing.JPanel buttonEditorialAuthor;
-    private javax.swing.JPanel buttonGive;
+    private javax.swing.JPanel buttonLoan;
     private javax.swing.JPanel buttonReserve;
     private javax.swing.JPanel content;
     private javax.swing.JLabel jLabel1;

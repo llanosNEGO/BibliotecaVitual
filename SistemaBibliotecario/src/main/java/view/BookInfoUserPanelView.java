@@ -4,17 +4,32 @@
  */
 package view;
 import com.raven.datechooser.DateChooser;
+import dao.AutorDAO;
+import dao.BookDAO;
+import dao.CommentDAO;
+import dao.EditorialDAO;
 import dao.PrestamoDAO;
+import dao.UserDAO;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import javax.swing.BorderFactory;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SpinnerNumberModel;
 import model.*;
+import service.CommentService;
+import service.LibroService;
 import service.PrestamoService;
+import uicomponents.CommentComponent;
 
 /**
  *
@@ -25,24 +40,39 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
     private UsuarioModel user;
     private DateChooser chDate = new DateChooser();
     private PrestamoService prestamoService;
-    
-    
+    private LibroService bookService;
+    private List<ComentarioModel> comments;
+    private CommentService commentService;
+    private JScrollPane jScrollPane;
     public BookInfoUserPanelView() {
-        initComponents();
-        
+        this(null, null);
     }
+
     public BookInfoUserPanelView(LibroModel book, UsuarioModel user) {
         initComponents();
         this.book = book;
         this.user = user;
-        prestamoService = new PrestamoService(new PrestamoDAO());
+        initializeServices();
         displayInfo();
+        displayComments();
+        configureComponents();
+    }
+
+    private void initializeServices() {
+        BookDAO bookDAO = new BookDAO(new AutorDAO(), new EditorialDAO());
+        UserDAO userDAO = new UserDAO();
+        prestamoService = new PrestamoService(new PrestamoDAO(bookDAO, userDAO));
+        bookService = new LibroService(bookDAO);
+        commentService = new CommentService(new CommentDAO(userDAO, bookDAO));
+    }
+    
+     private void configureComponents() {
+        cantidadSpinner.setModel(new SpinnerNumberModel(0, 0, 100, 1));
         chDate.setTextField(jTextField2);
         chDate.setDateSelectionMode(DateChooser.DateSelectionMode.BETWEEN_DATE_SELECTED);
-        chDate.setThemeColor(Color.yellow);
-        chDate.setBackground(Color.white);
+        chDate.setThemeColor(Color.YELLOW);
+        chDate.setBackground(Color.WHITE);
         chDate.setFont(new Font("Cascadia Code", Font.BOLD, 12));
-        
         chDate.setOpaque(true);
     }
 
@@ -57,7 +87,32 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
         sinopsisPane.setText(book.getSinopsis());
         editorialLabel.setText(book.getEditorial().getNombre());
         aniopubLabel.setText(book.getAnioPublicacion().toString());
+        availableBookLabel.setText(book.getSinPrestar()+"");
+    }
+    
+    
+    public void displayComments(){
+        comments = commentService.getCommentByIdOfBook(book.getId());
+        JPanel commentsList = new JPanel();
+        GridLayout layout = new GridLayout(0, 1, 20, 20);         
+        commentsList.setLayout(layout);
+        commentsList.setSize(420, 96);
+        commentsList.setLocation(0,0);
+        commentsList.setBackground(new Color(255,255,255));
         
+        for(ComentarioModel comment : comments){
+            CommentComponent commentView = new CommentComponent(comment.getUsuario().getUsername(), comment.getContenido());
+            commentsList.add(commentView);
+        }
+        jScrollPane = new JScrollPane(commentsList);
+        jScrollPane.setSize(420, 150);
+        jScrollPane.setLocation(0,0);
+        jScrollPane.setBorder(BorderFactory.createEmptyBorder());
+        commentsPanel.add(jScrollPane, BorderLayout.CENTER);
+        repaint();
+        revalidate();
+        
+       
     }
     
     /**
@@ -71,7 +126,7 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
 
         dateBetween1 = new com.raven.datechooser.DateBetween();
         jTextField1 = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
+        commentsPanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -86,7 +141,7 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
         aniopubLabel = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        availableBookLabel = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         bookImage = new javax.swing.JLabel();
@@ -94,7 +149,7 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
         sinopsisPane = new javax.swing.JTextPane();
         tituloLabel = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        jSpinner1 = new javax.swing.JSpinner();
+        cantidadSpinner = new javax.swing.JSpinner();
         jTextField2 = new javax.swing.JTextField();
         comentButtonPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -118,20 +173,20 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
         });
         add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 360, 319, -1));
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        commentsPanel.setBackground(new java.awt.Color(204, 204, 204));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout commentsPanelLayout = new javax.swing.GroupLayout(commentsPanel);
+        commentsPanel.setLayout(commentsPanelLayout);
+        commentsPanelLayout.setHorizontalGroup(
+            commentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 420, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        commentsPanelLayout.setVerticalGroup(
+            commentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 130, Short.MAX_VALUE)
         );
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 420, 130));
+        add(commentsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 420, 130));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -177,9 +232,9 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
         jLabel8.setText("Disponibles:");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        jLabel9.setText("12");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
+        availableBookLabel.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        availableBookLabel.setText("12");
+        jPanel3.add(availableBookLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 50, -1));
         jPanel3.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 210, 10));
 
         add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 220, 170));
@@ -205,8 +260,8 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
         add(tituloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, 420, 30));
         add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, 320, -1));
 
-        jSpinner1.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
-        add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, 70, 30));
+        cantidadSpinner.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
+        add(cantidadSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, 70, 30));
 
         jTextField2.setFont(new java.awt.Font("Cascadia Mono", 0, 12)); // NOI18N
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -233,9 +288,9 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
             .addGap(0, 90, Short.MAX_VALUE)
             .addGroup(comentButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(comentButtonPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 14, Short.MAX_VALUE)
                     .addComponent(jLabel5)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 15, Short.MAX_VALUE)))
         );
         comentButtonPanelLayout.setVerticalGroup(
             comentButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,9 +324,9 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
             .addGap(0, 100, Short.MAX_VALUE)
             .addGroup(prestamoButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(prestamoButtonPanelLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 23, Short.MAX_VALUE)
                     .addComponent(jLabel7)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 24, Short.MAX_VALUE)))
         );
         prestamoButtonPanelLayout.setVerticalGroup(
             prestamoButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,13 +353,14 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
         // TODO add your handling code here:
         
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        int cantidad = 0; 
+        int cantidad = (Integer)cantidadSpinner.getValue(); 
         Date loanFrom = new Date(chDate.getSelectedDateBetween().getFromDate().getTime());
         Date loanTo = new Date(chDate.getSelectedDateBetween().getToDate().getTime());
         System.out.println(formatter.format(loanFrom));
         System.out.println(formatter.format(loanTo));
         PrestamoModel prestamo = new PrestamoModel(cantidad, user, book,loanFrom, loanTo);
         prestamoService.insertPrestamos(prestamo);
+        bookService.calcCantoOfBooks(book.getId());
         
     }//GEN-LAST:event_prestamoButtonPanelMouseClicked
 
@@ -312,8 +368,11 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel aniopubLabel;
     private javax.swing.JLabel autorLabel;
+    private javax.swing.JLabel availableBookLabel;
     private javax.swing.JLabel bookImage;
+    private javax.swing.JSpinner cantidadSpinner;
     private javax.swing.JPanel comentButtonPanel;
+    private javax.swing.JPanel commentsPanel;
     private com.raven.datechooser.DateBetween dateBetween1;
     private javax.swing.JLabel editorialLabel;
     private javax.swing.JLabel isbnLabel;
@@ -325,8 +384,6 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
@@ -335,7 +392,6 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel prestamoButtonPanel;

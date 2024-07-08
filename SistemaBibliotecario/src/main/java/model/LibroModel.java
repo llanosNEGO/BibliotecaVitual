@@ -15,6 +15,7 @@ public class LibroModel {
     private EditorialModel editorial;
     private int totalEjemplares;
     private int sinPrestar;
+    private String donador;
 
     public LibroModel(String titulo, String Sinopsis, String urlImage, String isbn, Year añoPublicacion, AutorModel autor, EditorialModel editorial) {
         this.titulo = titulo;
@@ -26,6 +27,20 @@ public class LibroModel {
         this.editorial = editorial;
     }
 
+    public LibroModel(String titulo, String sinopsis, String urlImage, String isbn, Year anioPublicacion, AutorModel autor, EditorialModel editorial, int totalEjemplares, int sinPrestar, String donador) {
+        this.titulo = titulo;
+        this.sinopsis = sinopsis;
+        this.urlImage = urlImage;
+        this.isbn = isbn;
+        this.anioPublicacion = anioPublicacion;
+        this.autor = autor;
+        this.editorial = editorial;
+        this.totalEjemplares = totalEjemplares;
+        this.sinPrestar = sinPrestar;
+        this.donador = donador;
+    }
+
+    
     public LibroModel() {
     }
 
@@ -109,7 +124,14 @@ public class LibroModel {
         this.sinPrestar = sinPrestar;
     }
 
-        
+    public String getDonador() {
+        return donador;
+    }
+
+    public void setDonador(String donador) {
+        this.donador = donador;
+    }
+     
     @Override
     public String toString() {
         return "LibroModel{" + "titulo=" + titulo + ", Sinopsis=" + sinopsis + ", urlImage=" + urlImage + ", isbn=" + isbn + ", a\u00f1oPublicacion=" + anioPublicacion + ", idAutor=" + id + ", idEditorial=" + editorial + '}';
