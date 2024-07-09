@@ -495,7 +495,7 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
             Logger.getLogger(BooksAddAdminPanelView.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Error copying image file", "File Error", JOptionPane.ERROR_MESSAGE);
         }
-        
+        JOptionPane.showMessageDialog(null, "Libro agregado correctamente");
     }//GEN-LAST:event_addButtonPanelMouseClicked
 
     private void editButtonPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editButtonPanelMouseClicked
@@ -573,6 +573,7 @@ public class BooksAddAdminPanelView extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Error copying image file", "File Error", JOptionPane.ERROR_MESSAGE);
             }
         }
+         JOptionPane.showMessageDialog(null, "Libro modificado correctamente");
     }//GEN-LAST:event_editButtonPanelMouseClicked
 
     private void seeBooksPanelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seeBooksPanelButtonMouseClicked

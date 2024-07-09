@@ -258,6 +258,7 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
 
         jScrollPane2.setBorder(null);
 
+        sinopsisPane.setBackground(new java.awt.Color(255, 255, 255));
         sinopsisPane.setBorder(null);
         sinopsisPane.setFont(new java.awt.Font("Playwrite NG Modern", 0, 12)); // NOI18N
         sinopsisPane.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -376,6 +377,10 @@ public class BookInfoUserPanelView extends javax.swing.JPanel {
         System.out.println(formatter.format(loanTo));
         PrestamoModel prestamo = new PrestamoModel(cantidad, user, book,loanFrom, loanTo);
         
+        if(cantidad < 0){
+            JOptionPane.showMessageDialog(null, "No puedes utilizar cantidades negativas");
+            return;
+        }
         if(cantidad > book.getSinPrestar()){
             JOptionPane.showMessageDialog(null, "No puedes prestar mas de la cantidad disponible");
             return;
